@@ -1,5 +1,5 @@
 # Cupcake-Store
-Final project 
+Final project / branch cupcake-store-colab
 ------------------------
 Dependencias a utilizar:
 - vite
@@ -17,3 +17,5 @@ Dependencias a utilizar:
 -dotenv
 -jest
 -supertest
+
+-----------------------
