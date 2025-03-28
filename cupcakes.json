@@ -1,0 +1,73 @@
+[
+    {
+        "cupcake_id": 1,
+        "name": "Choco classic",
+        "description": "Una bomba con un bizcocho de chocolate, relleno de crema de leche batida, con cubierta de buttercream de chocolate y salsa de caramelo y un suculento decorado de sahne-nuss.",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 2,
+        "name": "Tuki cupcake",
+        "description": "Lo más trasandino que ofrecemos: bizcocho de vainilla, relleno de dulce de leche y una cobertura de nueces y aún más dulce de leche, un sabor sublime.",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 3,
+        "name": "Pie de Limón",
+        "description": "Sabor clásico y delicioso: Bizcocho de vainilla, relleno con suave crema de limón y cubierto con frosting de buttercream y salsa de limón, decorado con una rojada de limón de chocolate blanco.",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 4,
+        "name": "Savage mint", 
+        "description": "Con un bizcocho de chocolate, un relleno de mousse de chocolate y menta, una cubierta de buttercream de menta y salsa de chocolate, y una sutil decoración de chocolate relleno con menta, este cupcake de seguro es una experiencia para los fanáticos de la menta.",
+        "price": 2.990  
+    },
+
+    {
+        "cupcake_id": 5,
+        "name": "Nutella cupcake",
+        "description": "Sabes lo que quieres: bizcocho de vainilla relleno de crema de nutella, una cubierta de buttercream con toques de nutella, y una eminente decoración en base a (y lo sabes bien) Nutella. Una delicia.",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 6,
+        "name": "Strawberry cupcake Forever",
+        "description": "Esto si es real: Un bizcocho de vainilla relleno de una suave crema de frambuesa, una cubierta de buttercream de frutilla, y decorada con una rodaja de frutilla fresca, para una experiencia inolvidable.",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 7,
+        "name": "Kuky Kupcake",
+        "description":"Con la mente en sabores históricos, pusimos un bizcocho de vainilla relleno con chips de chocolate, cubierto con frosting de buttercream de vainilla y arena de Kuky, decorado con una galleta completa. El resultado es un recuerdo de infancia pero amplificado.",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 8,
+        "name": "Baileys cupcake",
+        "description": "Una base de bizcocho de vainilla relleno de crema de baileys, cubierto con frosting de buttercream de baileys, y decorado con una cápsula de shot de baileys (sin alcohol, guiño guiño).",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 9,
+        "name": "Donkey Kong Kupcake",
+        "description": "Bizcocho de plátano relleno con manjar, una cubierta de buttercream de vainilla y manjar, para rematar con una decoración de plátano confitado; para ponerse mono.",
+        "price": 2.990
+    },
+
+    {
+        "cupcake_id": 10,
+        "name": "Tritón cupcake",
+        "description": "Un bizcocho de chocolate relleno de una suave crema de vainilla, una cubierta de buttercream de vainilla, y sobre ello, una decoración de galleta triturada, para un sabor que enaltece a la galleta en cuestión.",    
+        "price": 2.990
+    }
+
+
+]

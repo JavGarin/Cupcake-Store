@@ -1,23 +1,79 @@
-/* src/components/SideMenu.css */
+/* Overlay oscuro */
 .sidemenu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-  }
-  
-  .sidemenu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background: #fff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-    padding: 1rem;
-    z-index: 1001;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidemenu-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Menú lateral */
+.sidemenu {
+  position: fixed;
+  top: 0;
+  left: -300px; /* fuera del viewport por defecto */
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  padding: 2rem 1.5rem;
+  z-index: 1001;
+  transition: left 0.4s ease-in-out;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cuando se abre */
+.sidemenu.open {
+  left: 0;
+}
+
+/* Botón de cerrar */
+.sidemenu .close-btn {
+  align-self: flex-start;
+  font-size: 3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+/* Lista y links */
+.sidemenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidemenu li {
+  margin-bottom: 1.5rem;
+}
+
+.sidemenu a {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+}
+
+.close-btn {
+  align-self: flex-end;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+  padding: 0;
+}

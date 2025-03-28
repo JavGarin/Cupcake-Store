@@ -40,8 +40,8 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* Menú lateral */}
-      {sideMenuOpen && <SideMenu toggleSideMenu={toggleSideMenu} />}
+      {/* Menú lateral con animación */}
+      <SideMenu isOpen={sideMenuOpen} toggleSideMenu={toggleSideMenu} />
     </>
   );
 }
