@@ -1,5 +1,6 @@
 # Cupcake-Store
 Final project / branch cupcake-store-colab
+"author": "Rodrigo Aguirre, Marcos Quinteros, Javier Garin",
 
 Dependencias a utilizar:
 - vite
