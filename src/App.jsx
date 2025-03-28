@@ -1,21 +1,26 @@
-import { useState } from "react";
+// src/App.jsx
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import Home from "./views/Home";
+// import Login from "./views/Login";
+// import Register from "./views/Register";
+// import Products from "./views/Products";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       {/* Navbar que se muestra en todas las vistas */}
       <Navbar />
 
-      <div className="container">
-        <div>
-          <h1>Futuro Cupcake Store :D</h1>
-        </div>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/*
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/products" element={<Products />} />
+          */}
+        </Routes>
       </div>
     </>
   );

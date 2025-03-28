@@ -1,8 +1,36 @@
 /* src/components/Navbar.css */
 
-/* Ejemplo de estilos básicos para el Navbar */
-.navbar {
-    background-color: #f8f9fa;
-    padding: 1rem;
+.navbar-custom {
+    background-color: #5da3e9;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 0px solid #ccc;
+  }
+  
+  /* Ajuste del logo */
+  .logo-img {
+    height: 120px; /* Puedes bajarlo aún más si quieres */
+    object-fit: contain;
+  }
+  
+  /* Ajuste de botones del nav */
+  .nav-button {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+    color: white;
+    border: 2px solid white;
+    background-color: transparent;
+    border-radius: 5px;
+  }
+  
+  .nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Centrado del contenido y altura general menor */
+  .navbar .container {
+    align-items: center;
+    min-height: 56px;
   }
   

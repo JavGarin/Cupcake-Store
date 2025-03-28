@@ -1,0 +1,18 @@
+.carousel-inner img {
+    height: 300px; /* Puedes ajustar el alto según el diseño deseado */
+    object-fit: cover;
+    border-radius: 0px;
+  }
+  
+  .carousel-caption {
+    background: rgba(0, 0, 0, 0.062); /* Fondo oscuro semitransparente */
+    padding: 0.1rem;
+    border-radius: 10px;
+  }
+  
+  .carousel-item video {
+    height: 580px;
+    object-fit: cover;
+    border-radius: 0px;
+  }
+  

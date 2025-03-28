@@ -1,8 +1,8 @@
 // src/components/Navbar.jsx
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import SideMenu from './SideMenu';
-import './Navbar.css'; // Puedes crear un archivo de estilos específico para el Navbar
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import SideMenu from "./SideMenu";
+import "./Navbar.css";
 
 function Navbar() {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
@@ -13,28 +13,34 @@ function Navbar() {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light navbar-custom">
         <div className="container">
           {/* Botón de menú hamburguesa */}
-          <button className="btn btn-outline-secondary" onClick={toggleSideMenu}>
-            <i className="fas fa-bars"></i>
+          <button className="nav-button" onClick={toggleSideMenu}>
+            <i className="fas fa-bars">Menú</i>
           </button>
-          
+
           {/* Logo en el centro */}
           <div className="mx-auto">
-            <Link className="navbar-brand" to="/">Cupcake Store</Link>
+            <Link className="navbar-brand nav-logo" to="/">
+              <img
+                src="/images/cupcakeLogo.png"
+                alt="Cupcake Logo"
+                className="logo-img"
+              />
+            </Link>
           </div>
-          
+
           {/* Botón del carrito a la derecha */}
           <div>
-            <Link to="/cart" className="btn btn-outline-secondary">
-              <i className="fas fa-shopping-cart"></i>
+            <Link to="/cart" className="nav-button">
+              <i className="fas fa-shopping-cart">Order Now</i>
             </Link>
           </div>
         </div>
       </nav>
-      
-      {/* Renderiza el menú lateral si está activo */}
+
+      {/* Menú lateral */}
       {sideMenuOpen && <SideMenu toggleSideMenu={toggleSideMenu} />}
     </>
   );
