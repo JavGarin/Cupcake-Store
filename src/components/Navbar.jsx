@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SideMenu from "./SideMenu";
 import "./Navbar.css";
@@ -11,17 +11,22 @@ function Navbar() {
     setSideMenuOpen(!sideMenuOpen);
   };
 
+  useEffect(() => {
+    document.body.classList.toggle("no-scroll", sideMenuOpen);
+  }, [sideMenuOpen]);
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light navbar-custom">
-        <div className="container">
-          {/* Botón de menú hamburguesa */}
-          <button className="nav-button" onClick={toggleSideMenu}>
-            <i className="fas fa-bars">Menú</i>
+      <nav className="navbar navbar-expand-lg navbar-light navbar-custom shadow-sm">
+        <div className="container d-flex justify-content-between align-items-center">
+          {/* Botón hamburguesa */}
+          <button className="icon-button" onClick={toggleSideMenu}>
+            <i className="fas fa-bars"></i>
+            <span className="icon-label">Menú</span>
           </button>
 
-          {/* Logo en el centro */}
-          <div className="mx-auto">
+          {/* Logo centrado */}
+          <div className="logo-wrapper mx-auto">
             <Link className="navbar-brand nav-logo" to="/">
               <img
                 src="/images/cupcakeLogo.png"
@@ -31,16 +36,14 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Botón del carrito a la derecha */}
-          <div>
-            <Link to="/cart" className="nav-button">
-              <i className="fas fa-shopping-cart">Order Now</i>
-            </Link>
-          </div>
+          {/* Carrito */}
+          <Link to="/cart" className="icon-button">
+            <i className="fas fa-shopping-cart"></i>
+            <span className="icon-label">Order Now</span>
+          </Link>
         </div>
       </nav>
 
-      {/* Menú lateral con animación */}
       <SideMenu isOpen={sideMenuOpen} toggleSideMenu={toggleSideMenu} />
     </>
   );

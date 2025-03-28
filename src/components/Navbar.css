@@ -1,36 +1,41 @@
-/* src/components/Navbar.css */
-
 .navbar-custom {
-    background-color: #5da3e9;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 0px solid #ccc;
-  }
-  
-  /* Ajuste del logo */
-  .logo-img {
-    height: 120px; /* Puedes bajarlo aún más si quieres */
-    object-fit: contain;
-  }
-  
-  /* Ajuste de botones del nav */
-  .nav-button {
-    padding: 4px 8px;
-    font-size: 0.9rem;
-    color: white;
-    border: 2px solid white;
-    background-color: transparent;
-    border-radius: 5px;
-  }
-  
-  .nav-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Centrado del contenido y altura general menor */
-  .navbar .container {
-    align-items: center;
-    min-height: 56px;
-  }
-  
+  background-color: #e970cb;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  padding: 0.8rem 1.5rem;
+  border-bottom: 0px solid #d968dd;
+  z-index: 1000;
+}
+
+.logo-img {
+  height: 100px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  transition: transform 0.2s;
+}
+
+.icon-button:hover {
+  transform: scale(1.05);
+}
+
+.icon-label {
+  font-size: 1.1rem;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
