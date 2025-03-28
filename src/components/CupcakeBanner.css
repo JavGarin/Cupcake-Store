@@ -1,0 +1,115 @@
+/* Contenedor principal: posicion relativo para controlar las capas */
+.banner-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    margin: 3rem auto;
+    overflow: visible;
+  }
+  
+  /* Fondo independiente, ocupa todo el contenedor y tiene bordes redondeados */
+  .banner-bg {
+    align-items: center;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    height: 400px;
+    width: auto;
+    border-radius: 50px;
+    transition: background-color 0.5s ease;
+    z-index: 1;
+  }
+  
+  /* Al hacer hover en el contenedor principal, cambia el fondo */
+  .banner-wrapper:hover .banner-bg {
+    background-color: #3bc2da;
+  }
+  
+  /* Contenedor de contenido, en dos columnas */
+  .banner-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 2 rem;
+  }
+  
+  /* Columna izquierda para la imagen */
+  .image-container {
+    flex: 0 0 35%;
+    display: flex;
+    justify-content: left;
+    align-items: left;
+  }
+  
+  /* La imagen sobresale de la capa de fondo */
+  .cupcake-image {
+    width: 640px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Animación lateral suave en hover para la imagen */
+  .banner-wrapper:hover .cupcake-image {
+    transform: translateX(12px);
+  }
+  
+  /* Columna derecha para el texto y botones */
+  .text-container {
+    flex: 0 0 50%;
+    padding-left: 0.2rem;
+    text-align: left;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Animación lateral suave en hover para el texto */
+  .banner-wrapper:hover .text-container {
+    transform: translateX(-10px);
+  }
+  
+  .text-container h2 {
+    margin: 0 0 1 rem;
+    font-size: 3rem;
+    transition: color 0.3s ease;
+  }
+  
+  .text-container p {
+    margin: 0 0 5 rem;
+    line-height: 2;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  /* Botones en la parte inferior del texto */
+  .buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+  
+  .btn {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+  }
+  
+  .see-more {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .order-now {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  .btn:hover {
+    filter: brightness(0.9);
+  }
+  
