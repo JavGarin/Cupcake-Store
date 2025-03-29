@@ -1,0 +1,13 @@
+.top-five-section {
+    padding: 2rem;
+    text-align: left;
+  }
+  
+  .section-title {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    margin-left: 8rem;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+  }
+  

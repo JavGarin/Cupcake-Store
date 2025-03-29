@@ -1,7 +1,7 @@
 /* Contenedor principal: posicion relativo para controlar las capas */
 .banner-wrapper {
     position: relative;
-    width: 100%;
+    width: 80%;
     max-width: 1600px;
     margin: 3rem auto;
     overflow: visible;
@@ -111,5 +111,11 @@
   
   .btn:hover {
     filter: brightness(0.9);
+  }
+  
+  .rating-stars {
+    margin: 0.5rem 0;
+    color: #ffc107; /* amarillo dorado */
+    font-size: 1.2rem;
   }
   

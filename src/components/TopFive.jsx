@@ -1,25 +1,31 @@
 // src/components/TopFive.jsx
-import React from 'react';
-import CupcakeBanner from './CupcakeBanner';
+import React, { useEffect, useState } from "react";
+import CupcakeBanner from "./CupcakeBanner";
+import "./TopFive.css";
 
-function TopFive() {
-  // Datos de ejemplo para el top 5
-  const cupcakes = [
-    { id: 1, name: 'Cupcake de Chocolate', description: 'Delicioso y cremoso.', image: 'chocolate.jpg' },
-    { id: 2, name: 'Cupcake de Vainilla', description: 'Suave y esponjoso.', image: 'vainilla.jpg' },
-    { id: 3, name: 'Cupcake de Fresa', description: 'Fresco y frutal.', image: 'fresa.jpg' },
-    { id: 4, name: 'Cupcake de Red Velvet', description: 'Con un toque especial.', image: 'redvelvet.jpg' },
-    { id: 5, name: 'Cupcake de Limón', description: 'Ácido y refrescante.', image: 'limon.jpg' }
-  ];
+const TopFive = () => {
+  const [topCupcakes, setTopCupcakes] = useState([]);
+
+  useEffect(() => {
+    fetch("/productos.json")
+      .then((res) => res.json())
+      .then((data) => {
+        // Ordenar de mayor a menor por rating
+        const ordenados = [...data].sort((a, b) => b.rating - a.rating);
+        const top5 = ordenados.slice(0, 5);
+        setTopCupcakes(top5);
+      })
+      .catch((err) => console.error("Error cargando productos:", err));
+  }, []);
 
   return (
-    <div className="top-five my-4">
-      <h2>Top 5 Cupcakes más vendidos</h2>
-      {cupcakes.map(cupcake => (
-        <CupcakeBanner key={cupcake.id} cupcake={cupcake} />
+    <div className="top-five-section">
+      <h2 className="section-title">Top 5 Cupcakes</h2>
+      {topCupcakes.map((cupcake) => (
+        <CupcakeBanner key={cupcake.cupcake_id} data={cupcake} />
       ))}
     </div>
   );
-}
+};
 
 export default TopFive;
