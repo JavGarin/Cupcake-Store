@@ -2,12 +2,12 @@
 import React from 'react';
 import './CupcakeBanner.css';
 
-const CupcakeBanner = ({ data }) => {
+const CupcakeBanner = ({ data, index = 0 }) => {
   if (!data) return null;
 
-  const { name, description, price, image, rating } = data;
+  const { name, description, price, image, rating, bgColor } = data;
+  const isEven = index % 2 === 0;
 
-  // Genera las estrellas
   const renderStars = (rating) => {
     const filledStars = Math.floor(rating);
     const halfStar = rating % 1 >= 0.5;
@@ -31,16 +31,20 @@ const CupcakeBanner = ({ data }) => {
   };
 
   return (
-    <div className="banner-wrapper">
+    <div
+      className="banner-wrapper"
+      style={{ '--bgColor': bgColor || '#fff' }}
+    >
       <div className="banner-bg"></div>
 
-      <div className="banner-content">
-        {/* Imagen */}
+      <div
+        className="banner-content"
+        style={{ flexDirection: isEven ? 'row' : 'row-reverse' }}
+      >
         <div className="image-container">
           <img src={image} alt={name} className="cupcake-image" />
         </div>
 
-        {/* Texto y botones */}
         <div className="text-container">
           <h2>{name}</h2>
           <div className="rating-stars">{renderStars(rating)}</div>
