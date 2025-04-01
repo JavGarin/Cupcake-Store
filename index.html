@@ -1,31 +1,82 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/cupcakesvg.svg" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CupcakeStore</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>CupcakeStore - Sabores Creativos y Deliciosos | Pastelería Artesanal</title>
+    <meta name="description" content="Descubre nuestros cupcakes artesanales con sabores únicos. Hechos con ingredientes naturales y decorados a mano. ¡Dulces momentos en cada bocado!">
+    <meta name="keywords" content="cupcakes, pastelería, repostería, sabores únicos, postres, dulces, tortas pequeñas, bakery">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cupcakestore.com/">
+    <meta property="og:title" content="CupcakeStore - Sabores Creativos y Deliciosos">
+    <meta property="og:description" content="Descubre nuestros cupcakes artesanales con sabores únicos. Hechos con ingredientes naturales y decorados a mano.">
+    <meta property="og:image" content="https://cupcakestore.com/public/images/cupcake_og_image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cupcakestore.com/">
+    <meta property="twitter:title" content="Cupcake Store - Sabores Creativos y Deliciosos">
+    <meta property="twitter:description" content="Descubre nuestros cupcakes artesanales con sabores únicos. Hechos con ingredientes naturales y decorados a mano.">
+    <meta property="twitter:image" content="https://cupcakestore.com/public/images/cupcake_twitter_image.jpg">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/public/images/cupcake_icon.png" />
+    <link rel="apple-touch-icon" href="/public/images/cupcake_apple_touch.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://cupcakestore.com/" />
+    
     <!-- Google Fonts: Poppins -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
+      preconnect
     />
     
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
-  
-    <!-- Font Awesome (sin integrity) -->
+    <!-- Preconnect to CDN -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    
+    <!-- Font Awesome (optimized) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
       crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+    
+    <!-- Schema.org markup for Google mejora de CEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://cupcakestore.com",
+      "@type": "Bakery",
+      "name": "CupcakeStore - Sabores Creativos y Deliciosos | Pastelería Artesanal",
+      "image": "https://cupcakestore.com/public/images/cupcake_schema.jpg",
+      "description": "Pastelería artesanal especializada en cupcakes con sabores creativos y únicos.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Dulce 123, Santiago",
+        "addressLocality": "Santiago de Chile",
+        "addressRegion": "RM - Región Metropolitana",
+        "postalCode": "28001",
+        "addressCountry": "CL"
+      },
+      "telephone": "+56 9 1234 5678",
+      "openingHours": "Mo-Fr 09:00-20:00",
+      "priceRange": "$$"
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.jsx" as="script">
   </body>
 </html>

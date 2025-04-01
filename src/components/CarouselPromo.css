@@ -1,18 +1,134 @@
 .carousel-inner img {
-    height: 300px; /* Puedes ajustar el alto según el diseño deseado */
-    object-fit: cover;
-    border-radius: 0px;
+  height: 80vh;
+  max-height: 800px;
+  min-height: 500px;
+  object-fit: cover;
+  border-radius: 0px;
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1.5rem;
+  border-radius: 10px;
+  bottom: 30%;
+  left: 10%;
+  right: auto;
+  width: 40%;
+  text-align: left;
+}
+
+.carousel-caption h5 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.carousel-caption p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.carousel-caption .btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.carousel-item video {
+  height: 80vh;
+  max-height: 800px;
+  min-height: 500px;
+  object-fit: cover;
+  border-radius: 0px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 100% 100%;
+}
+
+@media (max-width: 992px) {
+  .carousel-caption {
+    width: 60%;
+    bottom: 20%;
+  }
+  
+  .carousel-caption h5 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-inner img,
+  .carousel-item video {
+    height: 60vh;
+    min-height: 400px;
   }
   
   .carousel-caption {
-    background: rgba(0, 0, 0, 0); /* Fondo oscuro semitransparente */
-    padding: 0.1rem;
-    border-radius: 10px;
+    width: 80%;
+    bottom: 10%;
+    left: 10%;
+    padding: 1rem;
   }
   
+  .carousel-caption h5 {
+    font-size: 1.5rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-caption {
+    width: 90%;
+    bottom: 5%;
+  }
+  
+  .carousel-caption h5 {
+    font-size: 1.2rem;
+  }
+  
+  .carousel-caption .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-inner img,
   .carousel-item video {
-    height: 580px;
-    object-fit: cover;
-    border-radius: 0px;
+    height: 50vh;
+    min-height: 300px;
   }
   
+  .carousel-caption {
+    width: 90%;
+    bottom: 5%;
+    padding: 0.8rem;
+  }
+  
+  .carousel-caption h5 {
+    font-size: 1rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .carousel-caption .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+  }
+}

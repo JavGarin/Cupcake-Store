@@ -1,4 +1,3 @@
-// src/components/CupcakeBanner.jsx
 import React from 'react';
 import './CupcakeBanner.css';
 
@@ -50,8 +49,8 @@ const CupcakeBanner = ({ data, index = 0 }) => {
           <div className="rating-stars">{renderStars(rating)}</div>
           <p>{description}</p>
           <div className="buttons">
-            <button className="btn see-more">See More</button>
-            <button className="btn order-now">Order Now - ${price}</button>
+            <button className="btn see-more">Ver mas</button>
+            <button className="btn order-now">Ordena ahora - ${price}</button>
           </div>
         </div>
       </div>

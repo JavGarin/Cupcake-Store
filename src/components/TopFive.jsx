@@ -1,4 +1,3 @@
-// src/components/TopFive.jsx
 import React, { useEffect, useState } from "react";
 import CupcakeBanner from "./CupcakeBanner";
 
