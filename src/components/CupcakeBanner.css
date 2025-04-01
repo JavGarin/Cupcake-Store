@@ -175,3 +175,31 @@
     margin: 0 auto;
   }
 }
+
+@media (max-width: 480px) {
+  .banner-wrapper {
+    width: 95%;
+  }
+  
+  .banner-bg {
+    height: auto;
+    top: 80px;
+    bottom: 30px;
+  }
+  
+  .cupcake-image {
+    max-width: 250px;
+  }
+  
+  .text-container h2 {
+    font-size: 1.8rem;
+  }
+  
+  .buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}

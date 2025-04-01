@@ -112,6 +112,7 @@
 .logo {
   height: 40px;
   width: auto;
+  background-color: #5a3d5c;
 }
 
 .brand-name {
@@ -178,7 +179,6 @@
   border-top: 1px solid #f0e6ef;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .footer-top {
     grid-template-columns: 1fr;
@@ -198,5 +198,26 @@
   .payment-section {
     align-items: center;
     order: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 2rem 0 1rem;
+  }
+  
+  .footer-section {
+    padding: 0 0.5rem;
+  }
+  
+  .payment-methods {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .quick-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
   }
 }

@@ -28,7 +28,7 @@
     "name": "Savage mint",
     "description": "Una experiencia para los fanáticos de la menta.",
     "price": 2990,
-    "image": "/images/menta.png",
+    "image": "/images/tuki.png",
     "rating": 4.0
   },
   {
@@ -52,7 +52,7 @@
     "name": "Kuky Kupcake",
     "description": "Decorado con una galleta completa.",
     "price": 2990,
-    "image": "/images/kuky.png",
+    "image": "/images/cacao1.png",
     "rating": 4.4
   },
   {
@@ -60,7 +60,7 @@
     "name": "Baileys cupcake",
     "description": "Con shot de crema de Baileys.",
     "price": 2990,
-    "image": "/images/baileys.png",
+    "image": "/images/cacao3.png",
     "rating": 3.9
   },
   {
@@ -68,7 +68,7 @@
     "name": "Donkey Kong Kupcake",
     "description": "Decorado con plátano confitado.",
     "price": 2990,
-    "image": "/images/platano.png",
+    "image": "/images/strawberryA.png",
     "rating": 4.1
   },
   {
@@ -76,7 +76,7 @@
     "name": "Tritón cupcake",
     "description": "Decorado con galleta triturada.",
     "price": 2990,
-    "image": "/images/triton.png",
+    "image": "/images/chococlassicA.png",
     "rating": 4.2
   }
 ]

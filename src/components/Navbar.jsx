@@ -6,6 +6,7 @@ import "./Navbar.css";
 function Navbar() {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const toggleSideMenu = () => {
     setSideMenuOpen(!sideMenuOpen);
@@ -23,18 +24,28 @@ function Navbar() {
       }
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, [scrolled]);
 
   return (
     <>
       <nav className={`navbar navbar-expand-lg navbar-light navbar-custom ${scrolled ? 'navbar-scrolled' : ''}`}>
         <div className="container d-flex justify-content-between align-items-center">
-          {/* Botón hamburguesa */}
-          <button className="icon-button" onClick={toggleSideMenu}>
+          {/* Botón hamburguesa - Texto "MENÚ" visible en desktop */}
+          <button className="icon-button menu-button" onClick={toggleSideMenu}>
             <i className="fas fa-bars"></i>
-            <span className="icon-label">Menú</span>
+            <span className="icon-label">MENU</span>
           </button>
 
           {/* Logo centrado */}
@@ -49,9 +60,9 @@ function Navbar() {
           </div>
 
           {/* Carrito */}
-          <Link to="/cart" className="icon-button">
+          <Link to="/cart" className="icon-button cart-button">
             <i className="fas fa-shopping-cart"></i>
-            <span className="icon-label">Order Now</span>
+            <span className="icon-label">ORDENA</span>
           </Link>
         </div>
       </nav>

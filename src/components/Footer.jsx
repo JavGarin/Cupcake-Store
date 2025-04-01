@@ -24,15 +24,21 @@ function Footer() {
             <h3 className="section-title">Contacto</h3>
             <div className="contact-item">
               <FontAwesomeIcon icon={faMapMarkerAlt} className="icon" />
-              <span>Av. Dulce 123, Santiago</span>
+              <a href="https://maps.app.goo.gl/Wzs4DboiKuGzdBLu9" target='_blank' rel="noopener noreferrer">
+                <span>Av. Dulce 123, Santiago</span>
+              </a>
             </div>
             <div className="contact-item">
               <FontAwesomeIcon icon={faPhone} className="icon" />
-              <span>+56 9 1234 5678</span>
+              <a href="tel:+56912345678" className="clickable-contact">
+                <span>+56 9 1234 5678</span>
+              </a>
             </div>
             <div className="contact-item">
               <FontAwesomeIcon icon={faEnvelope} className="icon" />
-              <span>hola@cupcakestore.cl</span>
+              <a href="mailto:hola@cupcakestore.cl" className="clickable-contact">
+                <span>hola@cupcakestore.cl</span>
+              </a>
             </div>
           </div>
 
@@ -92,7 +98,7 @@ function Footer() {
               <FontAwesomeIcon icon={faCcMastercard} className="payment-icon" />
               <FontAwesomeIcon icon={faCcPaypal} className="payment-icon" />
             </div>
-            <a href="https://github.com/tu-usuario/cupcake-store" className="github-link">
+            <a href="https://github.com/JavGarin/Cupcake-Store" target="_blank" className="github-link">
               <FontAwesomeIcon icon={faGithub} />
               <span>Ver código</span>
             </a>
