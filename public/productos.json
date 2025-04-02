@@ -5,31 +5,35 @@
     "description": "Una bomba con un bizcocho de chocolate...",
     "price": 2990,
     "image": "/images/chococlassicA.png",
-    "rating": 5
+    "rating": 4.9,
+    "bgColor": "#614628"
   },
   {
     "cupcake_id": 2,
     "name": "Tuki cupcake",
     "description": "Lo más trasandino que ofrecemos...",
-    "price": 3100,
+    "price": 2990,
     "image": "/images/tuki.png",
-    "rating": 4.5
+    "rating": 4.5,
+    "bgColor": "#05bdeb"
   },
   {
     "cupcake_id": 3,
     "name": "Pie de Limón",
     "description": "Sabor clásico y delicioso...",
-    "price": 3500,
+    "price": 2990,
     "image": "/images/limonA.png",
-    "rating": 4.8
+    "rating": 4.9,
+    "bgColor": "#b7e23f"
   },
   {
     "cupcake_id": 4,
     "name": "Savage mint",
     "description": "Una experiencia para los fanáticos de la menta.",
     "price": 2990,
-    "image": "/images/tuki.png",
-    "rating": 4.0
+    "image": "/images/menta.png",
+    "rating": 4.0,
+    "bgColor": "#e0f2f1"
   },
   {
     "cupcake_id": 5,
@@ -37,7 +41,8 @@
     "description": "Bizcocho de vainilla relleno de Nutella.",
     "price": 2990,
     "image": "/images/NutelloA.png",
-    "rating": 4.8
+    "rating": 4.8,
+    "bgColor": "#8b6651"
   },
   {
     "cupcake_id": 6,
@@ -45,38 +50,43 @@
     "description": "Con crema de frambuesa y frutilla fresca.",
     "price": 2990,
     "image": "/images/strawberryA.png",
-    "rating": 4.6
+    "rating": 4.6,
+    "bgColor": "#f73f5d"
   },
   {
     "cupcake_id": 7,
     "name": "Kuky Kupcake",
     "description": "Decorado con una galleta completa.",
     "price": 2990,
-    "image": "/images/cacao1.png",
-    "rating": 4.4
+    "image": "/images/kuky.png",
+    "rating": 4.4,
+    "bgColor": "#f3e5f5"
   },
   {
     "cupcake_id": 8,
     "name": "Baileys cupcake",
     "description": "Con shot de crema de Baileys.",
     "price": 2990,
-    "image": "/images/cacao3.png",
-    "rating": 3.9
+    "image": "/images/baileys.png",
+    "rating": 3.9,
+    "bgColor": "#ede7f6"
   },
   {
     "cupcake_id": 9,
     "name": "Donkey Kong Kupcake",
     "description": "Decorado con plátano confitado.",
     "price": 2990,
-    "image": "/images/strawberryA.png",
-    "rating": 4.1
+    "image": "/images/platano.png",
+    "rating": 4.1,
+    "bgColor": "#fffde7"
   },
   {
     "cupcake_id": 10,
     "name": "Tritón cupcake",
     "description": "Decorado con galleta triturada.",
     "price": 2990,
-    "image": "/images/chococlassicA.png",
-    "rating": 4.2
+    "image": "/images/triton.png",
+    "rating": 4.2,
+    "bgColor": "#ede0d4"
   }
 ]

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CupcakeBanner from "./CupcakeBanner";
-import "./TopFive.css";
 
 const TopFive = () => {
   const [topCupcakes, setTopCupcakes] = useState([]);
@@ -9,7 +8,6 @@ const TopFive = () => {
     fetch("/productos.json")
       .then((res) => res.json())
       .then((data) => {
-        // Ordenar de mayor a menor por rating
         const ordenados = [...data].sort((a, b) => b.rating - a.rating);
         const top5 = ordenados.slice(0, 5);
         setTopCupcakes(top5);
@@ -20,8 +18,12 @@ const TopFive = () => {
   return (
     <div className="top-five-section">
       <h2 className="section-title">Top 5 Cupcakes</h2>
-      {topCupcakes.map((cupcake) => (
-        <CupcakeBanner key={cupcake.cupcake_id} data={cupcake} />
+      {topCupcakes.map((cupcake, index) => (
+        <CupcakeBanner
+          key={cupcake.cupcake_id}
+          data={cupcake}
+          index={index} // 👈 ¡Este es el que activa la alternancia!
+        />
       ))}
     </div>
   );
