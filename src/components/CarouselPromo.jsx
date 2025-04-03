@@ -19,7 +19,7 @@ function CarouselPromo() {
           </video>
           <div className="carousel-caption d-none d-md-block">
             <h5>Promoción 1</h5>
-            <p>¡Cupcakes irresistibles esta semana!</p>
+            <p>¡Cupcakes irresistibles de la semana!</p>
             <a className="btn btn-primary" href="/products">Comprar ahora</a>
           </div>
         </div>

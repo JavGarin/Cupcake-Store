@@ -6,7 +6,7 @@
   padding: 3rem 2rem;
   border-radius: 50px;
   overflow: visible;
-  --bgColor: #fff; /* valor por defecto si no viene */
+  --bgColor: #fff;
 }
 
 /* Fondo animado detrás del contenido */
@@ -58,7 +58,6 @@
   transform: scale(1.15);
 }
 
-/* Texto */
 .text-container {
   flex: 1;
   position: relative;
@@ -83,39 +82,85 @@
 
 .rating-stars {
   margin: 0.5rem 0 1rem 0;
-  color: #000000;
+  color: #f8a31a;
   font-size: 1.3rem;
 }
 
-/* Botones */
 .buttons {
   display: flex;
   gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .btn {
   padding: 0.8rem 1.4rem;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 12px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 025, 1);
   font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .see-more {
-  background-color: #000000;
+  background-color: linear-gradient(135deg, #a6ee0b 0%, #7bcb01 100%);
   color: #fff;
 }
 
+.see-more:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(166, 238, 11, 0.3);
+  background: linear-gradient(135deg, #b5f533 0%, #8be000 100%);
+}
 .order-now {
-  background-color: #000000;
+  background: linear-gradient(135deg, #e803a0 0%, #c60188 100%);
   color: #fff;
+}
+
+.order-now:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(232, 3, 160, 0.3);
+  background: linear-gradient(135deg, #ff1ab3 0%, #e0009a 100%);
+}
+
+.btn:active {
+  transform: scale(0.98);
 }
 
 .btn:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
+}
+
+.rating-stars {
+  margin: 0.5rem 0 1.5rem 0;
+  font-size: 1.5rem;
+  display: flex;
+  gap: 0.3rem;
+}
+
+.rating-stars i {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 4px rgba(255, 165, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.rating-stars i:hover {
+  transform: scale(1.2);
+  text-shadow: 0 3px 6px rgba(255, 165, 0, 0.3);
+}
+
+.star-empty {
+  color: #f0f0f0;
+  background: none !important;
 }
 
 /* Responsive */

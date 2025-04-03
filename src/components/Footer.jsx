@@ -83,7 +83,7 @@ function Footer() {
 
           <div className="branding">
             <img src="/images/cupcakeLogo.png" alt="Cupcake Store" className="logo" />
-            <span className="brand-name">Cupcake Store</span>
+            <a href="https://www.youtube.com/watch?v=fvxc1FwhP1c" target='_blank'><span className="brand-name">Cupcake Store</span></a>
           </div>
 
           <div className="quick-links">
