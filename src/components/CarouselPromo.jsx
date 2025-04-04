@@ -18,8 +18,8 @@ function CarouselPromo() {
             Tu navegador no soporta el video.
           </video>
           <div className="carousel-caption d-none d-md-block">
-            <h5>Promoción 1</h5>
-            <p>¡Cupcakes irresistibles de la semana!</p>
+            <h5>1 Tuki de regalo!</h5>
+            <p>¡comprando 2 cupcakes de la semana!</p>
             <a className="btn btn-primary" href="/products">Comprar ahora</a>
           </div>
         </div>
@@ -52,12 +52,12 @@ function CarouselPromo() {
             loop
             playsInline
           >
-            <source src="/images/cupcakePromoA.mp4" type="video/mp4" />
+            <source src="/images/cupcakePromoC.mp4" type="video/mp4" />
             Tu navegador no soporta el video.
           </video>
           <div className="carousel-caption d-none d-md-block">
-            <h5>Promoción 3</h5>
-            <p>¡No te lo pierdas!</p>
+            <h5>2 Donkeys al precio de 1</h5>
+            <p>¡Monkey day! No te lo pierdas!</p>
             <a className="btn btn-primary" href="/products">Comprar ahora</a>
           </div>
         </div>
