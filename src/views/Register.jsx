@@ -5,6 +5,8 @@ import './Auth.css';
 
 const Register = () => {
   const { 
+    username, 
+    setUsername,
     email, 
     setEmail, 
     password, 
@@ -46,6 +48,20 @@ const Register = () => {
         {validationError && <div className="alert alert-warning">{validationError}</div>}
         
         <form onSubmit={handleSubmit}>
+        <div className="form-group">
+            <label>Nombre de usuario</label>
+            <input
+              type="username"
+              className="form-control"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              minLength="5"
+              disabled={loading}
+            />
+            <small className="form-text">Mínimo 5 caracteres</small>
+          </div>
+
           <div className="form-group">
             <label>Email</label>
             <input

@@ -4,12 +4,14 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState(() => {
     return localStorage.getItem("token") || "";
   });
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
   // Verificar token al cargar
@@ -71,6 +73,7 @@ export const UserProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          username,
           email,
           password,
         }),
@@ -78,16 +81,24 @@ export const UserProvider = ({ children }) => {
       
       const data = await response.json();
       
-      if (!response.ok) {
+      if (!response.ok || !data.success) { // Si el backend dice que no fue exitoso
         throw new Error(data.error || "Error en el registro");
       }
       
-      if (data.token) {
-        setToken(data.token);
-        localStorage.setItem("token", data.token);
-        setEmail(data.email || "");
-        await getProfile();
-      }
+      setToken(data.token);
+      localStorage.setItem("token", data.token);
+      setUser({ email: data.user.email, username: data.user.username });
+      setSuccess("¡Registro exitoso! Redirigiendo...");
+      setTimeout(() => navigate("/"), 2000);
+
+      // if (data.token) {
+      //   setToken(data.token);
+      //   localStorage.setItem("token", data.token);
+      //   setEmail(data.email || "");
+      //   setUsername(data.username || "");
+      //   setSuccess("¡Registro exitoso! Redirigiendo...");
+      //   setTimeout(() => navigate("/"), 2000); // Redirige después de 2 segundos
+      // }
     } catch (err) {
       setError(err.message || "Error al registrar el usuario");
     } finally {
@@ -129,6 +140,8 @@ export const UserProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
+        username,
+        setUsername,
         email,
         setEmail,
         password,
