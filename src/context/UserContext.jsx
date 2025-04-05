@@ -5,19 +5,39 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem("token") || "";
-  });
+  const [token, setToken] = useState(() => localStorage.getItem("token") || "");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Verificar token al cargar
-  useEffect(() => {
-    if (token) {
-      getProfile();
+  const [mockUsers, setMockUsers] = useState([
+    {
+      id: 1,
+      email: "admin1@cupcake.com",
+      password: "admin123",
+      name: "Administrador",
+      role: "admin"
     }
+  ]);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      if (token) {
+        setLoading(true);
+        try {
+          await new Promise(resolve => setTimeout(resolve, 300));
+          const storedEmail = localStorage.getItem("userEmail");
+          const userData = mockUsers.find(u => u.email === storedEmail) || null;
+          setUser(userData);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    loadUser();
   }, [token]);
+
+  const generateToken = () => `demo-token-${Math.random().toString(36).substr(2)}-${Date.now()}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,31 +45,27 @@ export const UserProvider = ({ children }) => {
     setError(null);
     
     try {
-      const response = await fetch("http://localhost:3001/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || "Error en el inicio de sesión");
+      if (!email.trim() || !password.trim()) {
+        throw new Error("Email y contraseña son requeridos");
       }
+
+      await new Promise(resolve => setTimeout(resolve, 800));
       
-      if (data.token) {
-        setToken(data.token);
-        localStorage.setItem("token", data.token);
-        setEmail(data.email || "");
-        await getProfile();
-      }
+      const userFound = mockUsers.find(u => 
+        u.email === email && u.password === password
+      );
+      
+      if (!userFound) throw new Error("Credenciales incorrectas");
+      
+      const newToken = generateToken();
+      localStorage.setItem("token", newToken);
+      localStorage.setItem("userEmail", userFound.email);
+      setToken(newToken);
+      setUser(userFound);
+      
     } catch (err) {
-      setError(err.message || "Inicio de sesión fallido");
+      setError(err.message);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -61,70 +77,53 @@ export const UserProvider = ({ children }) => {
     setError(null);
     
     try {
+      if (!email.trim() || !password.trim()) {
+        throw new Error("Email y contraseña son requeridos");
+      }
+      
       if (password.length < 6) {
         throw new Error("La contraseña debe tener al menos 6 caracteres");
       }
+
+      await new Promise(resolve => setTimeout(resolve, 800));
       
-      const response = await fetch("http://localhost:3001/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || "Error en el registro");
+      if (mockUsers.some(u => u.email === email)) {
+        throw new Error("El email ya está registrado");
       }
       
-      if (data.token) {
-        setToken(data.token);
-        localStorage.setItem("token", data.token);
-        setEmail(data.email || "");
-        await getProfile();
-      }
+      const newUser = {
+        id: Math.max(...mockUsers.map(u => u.id), 0) + 1,
+        email,
+        password,
+        name: email.split('@')[0],
+        role: "customer"
+      };
+      
+      const newToken = generateToken();
+      setMockUsers(prev => [...prev, newUser]);
+      localStorage.setItem("token", newToken);
+      localStorage.setItem("userEmail", newUser.email);
+      setToken(newToken);
+      setUser(newUser);
+      
     } catch (err) {
-      setError(err.message || "Error al registrar el usuario");
+      setError(err.message);
+      throw err;
     } finally {
       setLoading(false);
-    }
-  };
-
-  const getProfile = async () => {
-    if (!token) return;
-    
-    try {
-      const response = await fetch("http://localhost:3001/api/auth/me", {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      
-      if (!response.ok) {
-        throw new Error("Error al obtener perfil");
-      }
-      
-      const data = await response.json();
-      setUser(data);
-    } catch (err) {
-      console.error("Error al obtener perfil:", err);
-      logout();
     }
   };
 
   const logout = () => {
     setToken("");
     setEmail("");
+    setPassword("");
     setUser(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('cart');
+    localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
   };
+
+  const isAdmin = () => user?.role === "admin";
 
   return (
     <UserContext.Provider
@@ -140,7 +139,8 @@ export const UserProvider = ({ children }) => {
         loading,
         error,
         logout,
-        getProfile,
+        isAdmin,
+        isAuthenticated: !!user
       }}
     >
       {children}

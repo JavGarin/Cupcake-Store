@@ -6,78 +6,48 @@ import "./Navbar.css";
 function Navbar() {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const toggleSideMenu = () => {
     setSideMenuOpen(!sideMenuOpen);
   };
 
   useEffect(() => {
-    document.body.classList.toggle("no-scroll", sideMenuOpen);
-  }, [sideMenuOpen]);
-
-  useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 50;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled]);
-
-  useEffect(() => {
-    const navbarHeight = document.querySelector('.navbar-custom')?.offsetHeight || 0;
-    document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
-    document.body.style.paddingTop = `${navbarHeight}px`;
-  
-    return () => {
-      document.body.style.paddingTop = '0';
-    };
-  }, [scrolled, isMobile]);  
-
-  useEffect(() => {
-    const handleResize = () => {
-      const mobileBreakpoint = window.innerWidth < 768;
-      setIsMobile(mobileBreakpoint);
-    
-      // recalcula altura del navbar al cambiar tamaño
-      const navbarHeight = document.querySelector('.navbar-custom').offsetHeight;
-      document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
-      document.body.style.paddingTop = `${navbarHeight}px`;
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("no-scroll", sideMenuOpen);
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [sideMenuOpen]);
 
   return (
     <>
-      <nav className={`navbar navbar-expand-lg navbar-light navbar-custom ${scrolled ? 'navbar-scrolled' : ''}`}>
-        <div className="container d-flex justify-content-between align-items-center">
-          {/* Botón hamburguesa - Texto "MENU" visible en desktop */}
-          <button className="icon-button menu-button" onClick={toggleSideMenu}>
+      <nav className={`navbar-custom ${scrolled ? 'scrolled' : ''}`}>
+        <div className="navbar-container">
+          <button className="icon-button menu-button" onClick={toggleSideMenu} aria-label="Toggle menu">
             <i className="fas fa-bars"></i>
             <span className="icon-label">MENU</span>
           </button>
 
-          {/* Logo centrado */}
-          <div className="logo-wrapper mx-auto">
-            <Link className="navbar-brand nav-logo" to="/">
+          <div className="logo-wrapper">
+            <Link className="navbar-brand" to="/">
               <img
                 src="/images/cupcakeLogo.png"
                 alt="Cupcake Logo"
                 className="logo-img"
+                loading="lazy"
               />
             </Link>
           </div>
 
-          {/* Carrito */}
-          <Link to="/cart" className="icon-button cart-button">
+          <Link to="/cart" className="icon-button cart-button" aria-label="Cart">
             <i className="fas fa-shopping-cart"></i>
             <span className="icon-label">ORDENA</span>
           </Link>

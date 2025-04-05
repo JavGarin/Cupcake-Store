@@ -246,6 +246,29 @@
       height: 400px;
     }
   }
+
+  @media (max-width: 768px) {
+    .product-detail-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .main-image {
+      height: 300px;
+    }
+    
+    .product-info {
+      padding: 0;
+    }
+    
+    .product-actions {
+      flex-direction: column;
+    }
+    
+    .quantity-selector {
+      margin-bottom: 1rem;
+    }
+  }
   
   @media (max-width: 576px) {
     .product-actions {

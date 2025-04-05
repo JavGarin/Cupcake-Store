@@ -13,9 +13,30 @@ body {
   overflow-x: hidden;
 }
 
+.btn-primary {
+  background: linear-gradient(135deg, #e970cb 0%, #d968dd 100%);
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #d968dd 0%, #c860cf 100%);
+}
+
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 80px;
 }
 
 img {

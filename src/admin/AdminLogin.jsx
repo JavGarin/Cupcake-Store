@@ -1,57 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminStyles.css';
+import { UserContext } from '../context/UserContext';
+import './AdminLogin.css';
 
 const AdminLogin = () => {
-    const [credentials, setCredentials] = useState({ email: '', password: '' });
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+  const { 
+    email, 
+    setEmail, 
+    password, 
+    setPassword, 
+    handleSubmit, 
+    loading, 
+    error,
+    isAdmin
+  } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [localError, setLocalError] = useState('');
 
-    const handleSubmit = async (e) => {
+  const handleAdminLogin = async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(credentials)
-    });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            localStorage.setItem('adminToken', data.token);
-            navigate('/admin/dashboard');
-        } else {
-            setError(data.message || 'Error de autenticación');
-    }
+      await handleSubmit(e);
+      if (isAdmin()) {
+        navigate('/admin/dashboard');
+      } else {
+        setLocalError('Acceso solo para administradores');
+      }
     } catch (err) {
-        setError('Error al conectar con el servidor');
+      setLocalError(err.message);
     }
-};
+  };
 
-return (
-    <div className="login-container">
-        <form onSubmit={handleSubmit}>
-        <h2>Acceso Administrador</h2>
-            {error && <div className="error-message">{error}</div>}
-        <input
-            type="email"
-            placeholder="Correo administrativo"
-            value={credentials.email}
-            onChange={(e) => setCredentials({...credentials, email: e.target.value})}
-            required
-        />
-        <input
-            type="password"
-            placeholder="Contraseña"
-            value={credentials.password}
-            onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-            required
-        />
-        <button type="submit">Ingresar</button>
+  return (
+    <div className="admin-login-container">
+      <div className="admin-login-card">
+        <h2>Panel Administrativo</h2>
+        <form onSubmit={handleAdminLogin}>
+          {error && <div className="alert alert-danger">{error}</div>}
+          {localError && <div className="alert alert-danger">{localError}</div>}
+          
+          <div className="form-group">
+            <label>Email Administrador</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={loading}
+            />
+          </div>
+          
+          <div className="form-group">
+            <label>Contraseña</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+            />
+          </div>
+          
+          <button type="submit" disabled={loading}>
+            {loading ? 'Ingresando...' : 'Ingresar'}
+          </button>
         </form>
+      </div>
     </div>
-    );
+  );
 };
 
 export default AdminLogin;

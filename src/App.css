@@ -1,10 +1,39 @@
+/* Reset básico */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .main-content {
-    flex: 1;
-    padding-top: 100px;
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar siempre transparente */
+.navbar-custom {
+  background-color: rgba(15, 15, 15, 0.15) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  margin-top: var(--navbar-height);
+}
+
+/* Ajuste especial para el carrusel */
+#promoCarousel {
+  margin-top: calc(-1 * var(--navbar-height));
+  height: 100vh;
+  position: relative;
+  z-index: 0;
+}
+
+/* Asegurar que otras secciones no se oculten */
+section {
+  position: relative;
+  z-index: 1;
+}

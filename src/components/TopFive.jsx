@@ -17,14 +17,18 @@ const TopFive = () => {
 
   return (
     <div className="top-five-section">
-      <h2 className="section-title">Top 5 Cupcakes</h2>
-      {topCupcakes.map((cupcake, index) => (
-        <CupcakeBanner
-          key={cupcake.cupcake_id}
-          data={cupcake}
-          index={index} // 👈 ¡Este es el que activa la alternancia!
-        />
-      ))}
+      <div className="title-container">
+        <h2 className="section-title">Top 5 Cupcakes</h2>
+      </div>
+      <div className="cupcakes-grid">
+        {topCupcakes.map((cupcake, index) => (
+          <CupcakeBanner
+            key={cupcake.cupcake_id}
+            data={cupcake}
+            index={index}
+          />
+        ))}
+      </div>
     </div>
   );
 };

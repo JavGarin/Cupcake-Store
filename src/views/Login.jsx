@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import './Auth.css';
@@ -15,11 +15,6 @@ const Login = () => {
   } = useContext(UserContext);
   
   const navigate = useNavigate();
-  
-  const handleDemoLogin = () => {
-    setEmail("demo@example.com");
-    setPassword("demopassword");
-  };
 
   return (
     <div className="auth-container">
@@ -66,15 +61,6 @@ const Login = () => {
             ) : (
               "Iniciar Sesión"
             )}
-          </button>
-          
-          <button 
-            type="button" 
-            className="demo-btn"
-            onClick={handleDemoLogin}
-            disabled={loading}
-          >
-            Usar cuenta demo
           </button>
         </form>
         
