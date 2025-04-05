@@ -50,17 +50,25 @@ const CarouselPromo = () => {
     {
       id: 1,
       video: "/images/cupcakePromoA.mp4",
-      title: "Promoción Especial",
-      description: "¡Los cupcakes más deliciosos de la temporada!",
-      ctaText: "Ordena ahora",
+      title: "1 Tuki de regalo!",
+      description: "¡Comprando 2 cupcakes de la semana!",
+      ctaText: "Comprar ahora",
       ctaLink: "/products"
     },
     {
       id: 2,
       video: "/images/cupcakePromoB.mp4",
-      title: "Oferta Exclusiva",
-      description: "¡No te pierdas nuestras promociones!",
-      ctaText: "Ver productos",
+      title: "Promoción 2",
+      description: "¡Oferta exclusiva!",
+      ctaText: "Comprar ahora",
+      ctaLink: "/products"
+    },
+    {
+      id: 3,
+      video: "/images/cupcakePromoC.mp4",
+      title: "2 Donkeys al precio de 1",
+      description: "¡Monkey day! No te lo pierdas!",
+      ctaText: "Comprar ahora",
       ctaLink: "/products"
     }
   ];
@@ -74,39 +82,29 @@ const CarouselPromo = () => {
     >
       <div className="carousel-inner">
         {carouselItems.map((item, index) => (
-          <article 
+          <div 
             key={item.id} 
             className={`carousel-item ${index === 0 ? 'active' : ''}`}
             aria-label={`Diapositiva ${index + 1}: ${item.title}`}
           >
-            <div className="video-container">
-              <video 
-                className="promo-video" 
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-                aria-hidden="true"
-                tabIndex="-1"
-                disablePictureInPicture
-              >
-                <source src={item.video} type="video/mp4" />
-                Tu navegador no soporta videos HTML5
-              </video>
-            </div>
-            
-            <div className="carousel-caption">
-              <h2 className="display-5 fw-bold mb-3">{item.title}</h2>
-              <p className="lead mb-4">{item.description}</p>
-              <Link 
-                to={item.ctaLink} 
-                className="btn btn-primary btn-lg px-4 py-2"
-                aria-label={item.ctaText}
-              >
+            <video
+              className="d-block w-100"
+              autoPlay
+              muted
+              loop
+              playsInline
+            >
+              <source src={item.video} type="video/mp4" />
+              Tu navegador no soporta el video.
+            </video>
+            <div className="carousel-caption d-none d-md-block">
+              <h5>{item.title}</h5>
+              <p>{item.description}</p>
+              <Link className="btn btn-primary" to={item.ctaLink}>
                 {item.ctaText}
               </Link>
             </div>
-          </article>
+          </div>
         ))}
       </div>
 
