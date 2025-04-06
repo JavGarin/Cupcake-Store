@@ -15,6 +15,7 @@ import { UserContext } from "./context/UserContext";
 import AdminLogin from "./admin/AdminLogin";
 import AdminDashboard from "./admin/AdminDashboard";
 import ProductEditor from "./admin/ProductEditor";
+import Profile from "./views/Profile"; // <-- IMPORTANTE
 import { ToastContainer } from 'react-toastify';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -51,7 +52,13 @@ function App() {
               <Cart />
             </ProtectedRoute>
           } />
-          
+
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
+
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={
             <ProtectedRoute requireAdmin>
@@ -60,7 +67,7 @@ function App() {
           }>
             <Route path="products" element={<ProductEditor />} />
           </Route>
-          
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

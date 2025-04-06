@@ -1,74 +1,51 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
-import './Auth.css';
+import { useState } from "react";
+import { login } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { 
-    email, 
-    setEmail, 
-    password, 
-    setPassword, 
-    handleSubmit, 
-    loading, 
-    error 
-  } = useContext(UserContext);
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const response = await login({ email, password });
+      localStorage.setItem("token", response.token);
+      console.log("Token recibido:", response.token);
+      navigate("/profile"); // Redirige a la vista protegida
+    } catch (err) {
+      setError(err.response?.data?.error || "Error al iniciar sesión");
+    }
+  };
+
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h2>Iniciar Sesión</h2>
-        <p className="auth-subtitle">Ingresa a tu cuenta para continuar</p>
-        
-        {error && <div className="alert alert-danger">{error}</div>}
-        
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              className="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          
-          <div className="form-group">
-            <label>Contraseña</label>
-            <input
-              type="password"
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          
-          <button 
-            type="submit" 
-            className="auth-btn"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <i className="fas fa-spinner fa-spin"></i> Cargando...
-              </>
-            ) : (
-              "Iniciar Sesión"
-            )}
-          </button>
-        </form>
-        
-        <div className="auth-footer">
-          <p>¿No tienes una cuenta? <a href="/register">Regístrate</a></p>
-          <p><a href="/forgot-password">¿Olvidaste tu contraseña?</a></p>
-        </div>
-      </div>
+    <div>
+      <h2>Iniciar Sesión</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <button type="submit">Ingresar</button>
+      </form>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };

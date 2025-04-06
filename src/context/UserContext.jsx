@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { register as registerUser, login as loginUser, getProfile } from "../services/authService";
 
 export const UserContext = createContext();
 
@@ -10,25 +11,16 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [mockUsers, setMockUsers] = useState([
-    {
-      id: 1,
-      email: "admin1@cupcake.com",
-      password: "admin123",
-      name: "Administrador",
-      role: "admin"
-    }
-  ]);
-
   useEffect(() => {
     const loadUser = async () => {
       if (token) {
         setLoading(true);
         try {
-          await new Promise(resolve => setTimeout(resolve, 300));
-          const storedEmail = localStorage.getItem("userEmail");
-          const userData = mockUsers.find(u => u.email === storedEmail) || null;
-          setUser(userData);
+          const profile = await getProfile(token);
+          setUser(profile);
+        } catch (err) {
+          console.error("Error al cargar perfil:", err);
+          logout();
         } finally {
           setLoading(false);
         }
@@ -37,34 +29,28 @@ export const UserProvider = ({ children }) => {
     loadUser();
   }, [token]);
 
-  const generateToken = () => `demo-token-${Math.random().toString(36).substr(2)}-${Date.now()}`;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    
+
     try {
       if (!email.trim() || !password.trim()) {
         throw new Error("Email y contraseña son requeridos");
       }
 
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      const userFound = mockUsers.find(u => 
-        u.email === email && u.password === password
-      );
-      
-      if (!userFound) throw new Error("Credenciales incorrectas");
-      
-      const newToken = generateToken();
+      const response = await loginUser({ email, password });
+      const newToken = response.token;
+
       localStorage.setItem("token", newToken);
-      localStorage.setItem("userEmail", userFound.email);
       setToken(newToken);
-      setUser(userFound);
-      
+
+      const profile = await getProfile(newToken);
+      setUser(profile);
+      localStorage.setItem("userEmail", profile.email);
+
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || err.message || "Error al iniciar sesión");
       throw err;
     } finally {
       setLoading(false);
@@ -75,39 +61,26 @@ export const UserProvider = ({ children }) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    
+
     try {
       if (!email.trim() || !password.trim()) {
         throw new Error("Email y contraseña son requeridos");
       }
-      
+
       if (password.length < 6) {
         throw new Error("La contraseña debe tener al menos 6 caracteres");
       }
 
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      if (mockUsers.some(u => u.email === email)) {
-        throw new Error("El email ya está registrado");
-      }
-      
-      const newUser = {
-        id: Math.max(...mockUsers.map(u => u.id), 0) + 1,
+      await registerUser({
         email,
         password,
-        name: email.split('@')[0],
-        role: "customer"
-      };
-      
-      const newToken = generateToken();
-      setMockUsers(prev => [...prev, newUser]);
-      localStorage.setItem("token", newToken);
-      localStorage.setItem("userEmail", newUser.email);
-      setToken(newToken);
-      setUser(newUser);
-      
+        username: email.split("@")[0]
+      });
+
+      window.location.href = "/login";
+
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || err.message || "Error al registrar");
       throw err;
     } finally {
       setLoading(false);
