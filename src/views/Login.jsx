@@ -1,51 +1,83 @@
-import { useState } from "react";
-import { login } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
+import './Auth.css'; // Asegúrate de que el CSS existe
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleSubmit,
+    loading,
+    error,
+  } = useContext(UserContext);
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
+  const handleLogin = async (e) => {
     try {
-      const response = await login({ email, password });
-      localStorage.setItem("token", response.token);
-      console.log("Token recibido:", response.token);
-      navigate("/profile"); // Redirige a la vista protegida
+      await handleSubmit(e);
+      navigate("/profile");
     } catch (err) {
-      setError(err.response?.data?.error || "Error al iniciar sesión");
+      console.error("Login fallido:", err);
     }
   };
 
   return (
-    <div>
-      <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+    <div className="auth-container">
+      <div className="auth-card">
+        <h2>Iniciar Sesión</h2>
+        <p className="auth-subtitle">Ingresa tus credenciales para continuar</p>
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        {error && <div className="alert alert-danger">{error}</div>}
 
-        <button type="submit">Ingresar</button>
-      </form>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={loading}
+            />
+          </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+          <div className="form-group">
+            <label>Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength="6"
+              disabled={loading}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="auth-btn"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <i className="fas fa-spinner fa-spin"></i> Iniciando...
+              </>
+            ) : (
+              "Ingresar"
+            )}
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          <p>¿No tienes una cuenta? <a href="/register">Regístrate</a></p>
+        </div>
+      </div>
     </div>
   );
 };

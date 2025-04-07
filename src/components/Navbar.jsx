@@ -1,14 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SideMenu from "./SideMenu";
 import "./Navbar.css";
+import { UserContext } from "../context/UserContext";
+import { CartContext } from "../context/CartContext"; // 👈 Importamos el contexto del carrito
 
 function Navbar() {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { user, isAuthenticated, logout } = useContext(UserContext);
+  const { cart } = useContext(CartContext); // 👈 Obtenemos el carrito desde el contexto
+  const navigate = useNavigate();
 
   const toggleSideMenu = () => {
     setSideMenuOpen(!sideMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -16,8 +26,8 @@ function Navbar() {
       setScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -27,15 +37,21 @@ function Navbar() {
     };
   }, [sideMenuOpen]);
 
+  // 👇 Calculamos la cantidad total de productos
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <>
-      <nav className={`navbar-custom ${scrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar-custom ${scrolled ? "scrolled" : ""}`}>
         <div className="navbar-container">
+
+          {/* Botón del menú lateral */}
           <button className="icon-button menu-button" onClick={toggleSideMenu} aria-label="Toggle menu">
             <i className="fas fa-bars"></i>
             <span className="icon-label">MENU</span>
           </button>
 
+          {/* Logo */}
           <div className="logo-wrapper">
             <Link className="navbar-brand" to="/">
               <img
@@ -47,10 +63,39 @@ function Navbar() {
             </Link>
           </div>
 
-          <Link to="/cart" className="icon-button cart-button" aria-label="Cart">
-            <i className="fas fa-shopping-cart"></i>
-            <span className="icon-label">ORDENA</span>
-          </Link>
+          {/* Sección derecha */}
+          <div className="d-flex align-items-center gap-2">
+
+            {isAuthenticated && (
+              <div className="dropdown">
+                <button
+                  className="icon-button dropdown-toggle"
+                  id="userDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  👋 {user?.email}
+                </button>
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li>
+                    <Link className="dropdown-item" to="/profile">Perfil</Link>
+                  </li>
+                  <li>
+                    <button className="dropdown-item" onClick={handleLogout}>Cerrar sesión</button>
+                  </li>
+                </ul>
+              </div>
+            )}
+
+            {/* Botón del carrito con contador */}
+            <Link to="/cart" className="icon-button cart-button position-relative" aria-label="Cart">
+              <i className="fas fa-shopping-cart"></i>
+              {totalItems > 0 && (
+                <span className="cart-count-badge">{totalItems}</span>
+              )}
+              <span className="icon-label">ORDENA</span>
+            </Link>
+          </div>
         </div>
       </nav>
 

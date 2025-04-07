@@ -1,25 +1,59 @@
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import './Profile.css';
 
 const Profile = () => {
-  const { user, token, logout } = useContext(UserContext);
-  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    try {
+      // Aquí puedes hacer la petición al backend (por ahora solo simulado)
+      await new Promise(resolve => setTimeout(resolve, 800));
+      setMessage("Contraseña actualizada correctamente");
+      setNewPassword("");
+    } catch (err) {
+      setMessage("Error al actualizar contraseña");
+    } finally {
+      setLoading(false);
     }
-  }, [token, navigate]);
+  };
 
-  if (!user) return <p>Cargando perfil...</p>;
+  if (!user) return <p className="text-center mt-5">Cargando perfil...</p>;
 
   return (
     <div className="profile-container">
-      <h2>Perfil del Usuario</h2>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>Rol:</strong> {user.role}</p>
-      <button onClick={logout}>Cerrar sesión</button>
+      <div className="profile-card">
+        <h2>Perfil de Usuario</h2>
+
+        <div className="profile-info">
+          <p><strong>Email:</strong> {user.email}</p>
+          <p><strong>Rol:</strong> {user.role}</p>
+        </div>
+
+        <form onSubmit={handleChangePassword} className="profile-form">
+          <label>Nueva contraseña</label>
+          <input
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+            minLength={6}
+          />
+
+          <button type="submit" disabled={loading}>
+            {loading ? "Guardando..." : "Cambiar contraseña"}
+          </button>
+        </form>
+
+        {message && <p className="profile-message">{message}</p>}
+      </div>
     </div>
   );
 };

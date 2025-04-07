@@ -1,0 +1,22 @@
+/* Cart.css */
+
+.cart-container {
+    padding: 2rem;
+  }
+  
+  .cart-item {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0;
+  }
+  
+  .cart-item img {
+    width: 80px;
+    height: auto;
+    margin-right: 1rem;
+  }
+  
+  .cart-summary {
+    text-align: right;
+    margin-top: 1rem;
+  }
+  

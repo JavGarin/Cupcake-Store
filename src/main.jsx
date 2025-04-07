@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './context/UserContext';
+import { CartProvider } from './context/CartContext'; // <-- importación añadida
 import './index.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +21,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <CartProvider> {/* <-- envolvemos App con CartProvider */}
+          <App />
+        </CartProvider>
       </UserProvider>
     </BrowserRouter>
   </StrictMode>

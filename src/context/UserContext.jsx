@@ -113,7 +113,8 @@ export const UserProvider = ({ children }) => {
         error,
         logout,
         isAdmin,
-        isAuthenticated: !!user
+        isAuthenticated: !!user,
+        isLoggedIn: !!user // ✅ Agregado para compatibilidad con ProductDetail
       }}
     >
       {children}
