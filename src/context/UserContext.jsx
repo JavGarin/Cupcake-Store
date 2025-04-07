@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import axios from 'axios';
 
 export const UserContext = createContext();
 
@@ -10,25 +11,23 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [mockUsers, setMockUsers] = useState([
-    {
-      id: 1,
-      email: "admin1@cupcake.com",
-      password: "admin123",
-      name: "Administrador",
-      role: "admin"
-    }
-  ]);
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
+  // Cargar datos del usuario al iniciar si hay token
   useEffect(() => {
     const loadUser = async () => {
       if (token) {
         setLoading(true);
         try {
-          await new Promise(resolve => setTimeout(resolve, 300));
-          const storedEmail = localStorage.getItem("userEmail");
-          const userData = mockUsers.find(u => u.email === storedEmail) || null;
-          setUser(userData);
+          const response = await axios.get(`${API_URL}/auth/profile`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          setUser(response.data.user);
+        } catch (err) {
+          console.error("Error al cargar usuario:", err);
+          logout();
         } finally {
           setLoading(false);
         }
@@ -37,34 +36,26 @@ export const UserProvider = ({ children }) => {
     loadUser();
   }, [token]);
 
-  const generateToken = () => `demo-token-${Math.random().toString(36).substr(2)}-${Date.now()}`;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     
     try {
-      if (!email.trim() || !password.trim()) {
-        throw new Error("Email y contraseña son requeridos");
-      }
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        email,
+        password
+      });
 
-      await new Promise(resolve => setTimeout(resolve, 800));
+      const { token: newToken, user: userData } = response.data;
       
-      const userFound = mockUsers.find(u => 
-        u.email === email && u.password === password
-      );
-      
-      if (!userFound) throw new Error("Credenciales incorrectas");
-      
-      const newToken = generateToken();
       localStorage.setItem("token", newToken);
-      localStorage.setItem("userEmail", userFound.email);
       setToken(newToken);
-      setUser(userFound);
+      setUser(userData);
       
     } catch (err) {
-      setError(err.message);
+      const errorMsg = err.response?.data?.error || "Credenciales incorrectas";
+      setError(errorMsg);
       throw err;
     } finally {
       setLoading(false);
@@ -77,37 +68,21 @@ export const UserProvider = ({ children }) => {
     setError(null);
     
     try {
-      if (!email.trim() || !password.trim()) {
-        throw new Error("Email y contraseña son requeridos");
-      }
-      
-      if (password.length < 6) {
-        throw new Error("La contraseña debe tener al menos 6 caracteres");
-      }
-
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
-      if (mockUsers.some(u => u.email === email)) {
-        throw new Error("El email ya está registrado");
-      }
-      
-      const newUser = {
-        id: Math.max(...mockUsers.map(u => u.id), 0) + 1,
+      const response = await axios.post(`${API_URL}/auth/register`, {
         email,
-        password,
-        name: email.split('@')[0],
-        role: "customer"
-      };
+        password
+        // El username se genera en el backend
+      });
+
+      const { token: newToken, user: userData } = response.data;
       
-      const newToken = generateToken();
-      setMockUsers(prev => [...prev, newUser]);
       localStorage.setItem("token", newToken);
-      localStorage.setItem("userEmail", newUser.email);
       setToken(newToken);
-      setUser(newUser);
+      setUser(userData);
       
     } catch (err) {
-      setError(err.message);
+      const errorMsg = err.response?.data?.error || "Error al registrar";
+      setError(errorMsg);
       throw err;
     } finally {
       setLoading(false);
@@ -120,7 +95,6 @@ export const UserProvider = ({ children }) => {
     setPassword("");
     setUser(null);
     localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
   };
 
   const isAdmin = () => user?.role === "admin";
@@ -140,7 +114,7 @@ export const UserProvider = ({ children }) => {
         error,
         logout,
         isAdmin,
-        isAuthenticated: !!user
+        isAuthenticated: !!token
       }}
     >
       {children}
