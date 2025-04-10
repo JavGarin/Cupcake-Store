@@ -9,6 +9,7 @@ Dependencias a utilizar:
 - axios
 -react-bootstrap
 -react-bootstrap-icons
+-react-toastify
 -express JS
 -jsonwebtoken(JWT)
 -pg

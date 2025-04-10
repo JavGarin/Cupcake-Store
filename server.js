@@ -1,98 +1,64 @@
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import axios from 'axios';
-import morgan from 'morgan';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Configuración básica
+// 1. Configuración inicial obligatoria
+dotenv.config(); // Carga las variables de entorno
+
+// 2. Solución para 'process is not defined'
+// (No necesitas hacer nada más, dotenv.config() ya hace process disponible)
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-dotenv.config();
 
 const app = express();
-// Asegúrate que coincida con esto:
+const PORT = process.env.PORT || 3001; // Ahora process estará definido
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3001';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
-// Middlewares esenciales
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
+  origin: FRONTEND_URL,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(express.json());
-app.use(morgan('dev')); // Logger para desarrollo
 
-// Servir archivos estáticos
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Proxy para las rutas de la API
-const apiProxy = async (req, res) => {
+// Proxy para las rutas de API
+app.use('/api', async (req, res) => {
   try {
-    const url = `${BACKEND_URL}${req.originalUrl}`;
     const response = await axios({
       method: req.method,
-      url,
-      headers: {
-        ...req.headers,
-        host: new URL(BACKEND_URL).host,
-        'x-forwarded-for': req.ip
-      },
+      url: `${BACKEND_URL}${req.originalUrl}`,
       data: req.body,
-      validateStatus: () => true // Aceptar todos los códigos de estado
+      headers: {
+        'Authorization': req.headers.authorization || ''
+      }
     });
-
-    // Reenviar la respuesta del backend al frontend
     res.status(response.status).json(response.data);
   } catch (error) {
-    console.error('Error en proxy:', error);
-    res.status(500).json({ 
-      error: 'Error de conexión con el servidor',
-      details: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-};
-
-// Rutas de API que serán proxy al backend
-app.all('/api/auth/*', apiProxy);
-app.all('/api/products/*', apiProxy);
-app.all('/api/cart/*', apiProxy);
-app.all('/api/orders/*', apiProxy);
-app.all('/api/admin/*', apiProxy);
-
-// Ruta para obtener los productos (fallback si el backend no está disponible)
-app.get('/api/products/fallback', (req, res) => {
-  try {
-    const products = require('./public/productos.json');
-    res.json(products);
-  } catch (error) {
-    console.error('Error al cargar productos:', error);
-    res.status(500).json({ error: 'Error al cargar productos' });
+    if (error.response) {
+      // Error del backend
+      res.status(error.response.status).json(error.response.data);
+    } else {
+      // Error de conexión
+      res.status(500).json({ error: 'Error al conectar con el servidor' });
+    }
   }
 });
 
-// Ruta para el frontend (Single Page Application)
+// Ruta para el frontend (SPA)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Manejo de rutas no encontradas
-app.use((req, res) => {
-  res.status(404).json({ error: 'Ruta no encontrada' });
-});
-
-// Manejo de errores
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).json({ 
-    error: 'Algo salió mal',
-    details: process.env.NODE_ENV === 'development' ? err.stack : undefined
-  });
-});
-
 // Iniciar servidor
-const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Servidor frontend listo en http://localhost:${PORT}`);
-  console.log(`Proxyando API a: ${BACKEND_URL}`);
+  console.log(`Servidor proxy corriendo en http://localhost:${PORT}`);
+  console.log(`Conectando a backend: ${BACKEND_URL}`);
+  console.log(`Frontend permitido: ${FRONTEND_URL}`);
 });

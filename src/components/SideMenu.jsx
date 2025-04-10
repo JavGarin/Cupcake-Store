@@ -25,7 +25,7 @@ function SideMenu({ isOpen, toggleSideMenu }) {
             <Link to="/register" onClick={toggleSideMenu}>Registrarse</Link>
           </li>
           <li>
-            <Link to="/login" onClick={toggleSideMenu}>Login</Link>
+            <Link to="/login" onClick={toggleSideMenu}>Iniciar Sesión</Link>
           </li>
           <li>
             <Link to="/products" onClick={toggleSideMenu}>Productos</Link>

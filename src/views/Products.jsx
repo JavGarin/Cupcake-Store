@@ -1,21 +1,24 @@
+// components/Products.jsx
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Products.css";
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("all");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/productos.json");
+        const response = await fetch('http://localhost:3001/api/productos');
         const data = await response.json();
-        setProducts(data);
-        setLoading(false);
+        if (data.success) {
+          setProducts(data.data);
+        }
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -23,74 +26,38 @@ function Products() {
     fetchProducts();
   }, []);
 
-  const filteredProducts = filter === "all" 
-    ? products 
-    : products.filter(product => 
-        filter === "featured" ? product.rating >= 4.5 : true
-      );
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
+  if (loading) return <div className="loading">Cargando cupcakes...</div>;
 
   return (
     <div className="products-container">
-      <div className="products-header">
-        <h1>Nuestros Cupcakes</h1>
-        <div className="filter-buttons">
-          <button 
-            className={filter === "all" ? "active" : ""}
-            onClick={() => setFilter("all")}
+      <h1 className="products-title">Nuestros Cupcakes</h1>
+      <div className="products-grid">
+        {products.map((product, index) => (
+          <div 
+            key={product.id} 
+            className="product-card animated-card"
+            style={{ "--i": index }}
+            onClick={() => handleProductClick(product.id)}
           >
-            Todos
-          </button>
-          <button 
-            className={filter === "featured" ? "active" : ""}
-            onClick={() => setFilter("featured")}
-          >
-            Destacados
-          </button>
-        </div>
-      </div>
-
-      {loading ? (
-        <div className="loading-spinner">
-          <i className="fas fa-spinner fa-spin"></i>
-        </div>
-      ) : (
-        <div className="products-grid">
-          {filteredProducts.map((product) => (
-            <div key={product.cupcake_id} className="product-card">
-              <Link to={`/product/${product.cupcake_id}`}>
-                <div className="product-image-container">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="product-image"
-                  />
-                  {product.rating >= 4.5 && (
-                    <span className="featured-badge">Destacado</span>
-                  )}
-                </div>
-                <div className="product-info">
-                  <h3>{product.name}</h3>
-                  <div className="product-rating">
-                    {[...Array(5)].map((_, i) => (
-                      <i 
-                        key={i}
-                        className={`fas fa-star ${i < Math.floor(product.rating) ? "filled" : ""} ${
-                          i === Math.floor(product.rating) && product.rating % 1 >= 0.5 ? "half-filled" : ""
-                        }`}
-                      ></i>
-                    ))}
-                    <span>({product.rating})</span>
-                  </div>
-                  <p className="product-price">${product.price.toLocaleString()}</p>
-                  <button className="add-to-cart-btn">
-                    Añadir al carrito
-                  </button>
-                </div>
-              </Link>
+            <div className="product-image-container">
+              <img 
+                src={product.image} 
+                alt={product.name}
+                className="product-image"
+                onError={(e) => e.target.src = '/placeholder-cupcake.png'}
+              />
             </div>
-          ))}
-        </div>
-      )}
+            <div className="product-info">
+              <h3>{product.name}</h3>
+              <p className="product-price">${product.price}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
