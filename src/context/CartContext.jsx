@@ -5,6 +5,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false); // 🟢 nombre consistente
 
   const addToCart = (productToAdd) => {
     setCart((prevCart) => {
@@ -26,8 +27,22 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCart([]);
 
+  // 🟢 funciones con nombres coherentes
+  const toggleCartSidebar = () => setIsCartSidebarOpen(prev => !prev);
+  const openCartSidebar = () => setIsCartSidebarOpen(true);
+  const closeCartSidebar = () => setIsCartSidebarOpen(false);
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{
+      cart,
+      addToCart,
+      removeFromCart,
+      clearCart,
+      isCartSidebarOpen,
+      toggleCartSidebar,
+      openCartSidebar,
+      closeCartSidebar
+    }}>
       {children}
     </CartContext.Provider>
   );

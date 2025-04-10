@@ -1,15 +1,18 @@
+// src/components/Navbar.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SideMenu from "./SideMenu";
+import CartSidebar from "./CartSidebar";
 import "./Navbar.css";
 import { UserContext } from "../context/UserContext";
-import { CartContext } from "../context/CartContext"; // 👈 Importamos el contexto del carrito
+import { CartContext } from "../context/CartContext";
+import { toast } from "react-toastify"; // Asegúrate de tener toast para notificaciones
 
 function Navbar() {
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { user, isAuthenticated, logout } = useContext(UserContext);
-  const { cart } = useContext(CartContext); // 👈 Obtenemos el carrito desde el contexto
+  const { user, isAuthenticated, logout } = useContext(UserContext); // Usamos UserContext
+  const { cart, toggleCartSidebar, isCartSidebarOpen } = useContext(CartContext); // Usamos CartContext
   const navigate = useNavigate();
 
   const toggleSideMenu = () => {
@@ -21,6 +24,7 @@ function Navbar() {
     navigate("/login");
   };
 
+  // Verificamos si hay scroll en la página
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -30,22 +34,32 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Controlamos el estado de la clase no-scroll
   useEffect(() => {
-    document.body.classList.toggle("no-scroll", sideMenuOpen);
+    document.body.classList.toggle("no-scroll", sideMenuOpen || isCartSidebarOpen);
     return () => {
       document.body.classList.remove("no-scroll");
     };
-  }, [sideMenuOpen]);
+  }, [sideMenuOpen, isCartSidebarOpen]);
 
-  // 👇 Calculamos la cantidad total de productos
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  const handleCartClick = () => {
+    if (!isAuthenticated) {
+      // Si el usuario no está logueado, redirigir al login
+      toast.info("Por favor, inicia sesión para ver tu carrito.");
+      navigate("/login");
+    } else {
+      // Si el usuario está logueado, desplegar el carrito
+      toggleCartSidebar();
+    }
+  };
 
   return (
     <>
       <nav className={`navbar-custom ${scrolled ? "scrolled" : ""}`}>
         <div className="navbar-container">
-
-          {/* Botón del menú lateral */}
+          {/* Menú lateral izquierdo */}
           <button className="icon-button menu-button" onClick={toggleSideMenu} aria-label="Toggle menu">
             <i className="fas fa-bars"></i>
             <span className="icon-label">MENU</span>
@@ -63,9 +77,8 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Sección derecha */}
+          {/* Controles a la derecha */}
           <div className="d-flex align-items-center gap-2">
-
             {isAuthenticated && (
               <div className="dropdown">
                 <button
@@ -87,19 +100,22 @@ function Navbar() {
               </div>
             )}
 
-            {/* Botón del carrito con contador */}
-            <Link to="/cart" className="icon-button cart-button position-relative" aria-label="Cart">
+            {/* Botón carrito -> redirige o despliega dependiendo del estado de autenticación */}
+            <button
+              className="icon-button cart-button position-relative"
+              onClick={handleCartClick} // Modificado para manejar el estado de autenticación
+              aria-label="Cart"
+            >
               <i className="fas fa-shopping-cart"></i>
-              {totalItems > 0 && (
-                <span className="cart-count-badge">{totalItems}</span>
-              )}
+              {totalItems > 0 && <span className="cart-count-badge">{totalItems}</span>}
               <span className="icon-label">ORDENA</span>
-            </Link>
+            </button>
           </div>
         </div>
       </nav>
 
       <SideMenu isOpen={sideMenuOpen} toggleSideMenu={toggleSideMenu} />
+      <CartSidebar /> {/* El carrito ya está desplegable al hacer clic si el usuario está logueado */}
     </>
   );
 }

@@ -82,7 +82,7 @@
 
 .rating-stars {
   margin: 0.5rem 0 1rem 0;
-  color: #f8a31a;
+  color: #000000;
   font-size: 1.3rem;
 }
 
@@ -108,14 +108,14 @@
 }
 
 .see-more {
-  background-color: linear-gradient(135deg, #a6ee0b 0%, #7bcb01 100%);
-  color: #fff;
+  background-color: linear-gradient(135deg, #eb4949 10%, #7bcb01 100%);
+  color: #000000;
 }
 
 .see-more:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(166, 238, 11, 0.3);
-  background: linear-gradient(135deg, #b5f533 0%, #8be000 100%);
+  background: linear-gradient(135deg, #33f54d 0%, #8be000 100%);
 }
 .order-now {
   background: linear-gradient(135deg, #e803a0 0%, #c60188 100%);

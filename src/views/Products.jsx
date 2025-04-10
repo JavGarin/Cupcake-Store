@@ -1,42 +1,38 @@
 // src/views/Products.jsx
 import React, { useEffect, useState } from "react";
-import ProductDetail from "../components/ProductDetail";
-import "./Products.css"; // Asegúrate de que este archivo exista
+import ProductCard from "../components/ProductCard";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("/productos.json"); // temporal, luego conectas con backend
-        const data = await response.json();
+    fetch("http://localhost:3001/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Productos recibidos:", data);
         setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
+      })
+      .catch((error) => console.error("Error al cargar productos:", error));
   }, []);
 
-  if (loading) {
+  if (!products || products.length === 0) {
     return (
-      <div className="loading-container">
-        <i className="fas fa-spinner fa-spin"></i>
+      <div className="container my-5 text-center">
+        <h2>Catálogo</h2>
+        <p className="text-muted mt-4">Cargando productos o no hay productos disponibles.</p>
       </div>
     );
   }
 
   return (
-    <div className="products-container">
-      <h1>Nuestros Cupcakes</h1>
-      <div className="products-grid">
-        {products.map((product) => (
-          <ProductDetail key={product.cupcake_id} product={product} />
+    <div className="container my-4">
+      <h2 className="mb-4 text-center">Catálogo</h2>
+
+      <div className="row">
+        {products.map((prod) => (
+          <div className="col-md-4 mb-4 d-flex" key={prod.cupcake_id}>
+            <ProductCard product={prod} />
+          </div>
         ))}
       </div>
     </div>
