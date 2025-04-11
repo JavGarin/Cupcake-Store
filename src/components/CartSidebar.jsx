@@ -12,10 +12,12 @@ const CartSidebar = () => {
 
   if (!isLoggedIn) return null;
 
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * (item.quantity || 1),
-    0
-  );
+  // const total = cart.reduce(
+  //   (sum, item) => sum + item.price * (item.quantity || 1),
+  //   0
+  // );
+ const total = Array.isArray(cart) ? cart.reduce((acc, item) => acc + item.price * item.quantity, 0) : 0;
+
 
   const handleGoToCart = () => {
     toggleCartSidebar();
@@ -33,7 +35,7 @@ const CartSidebar = () => {
         {cart.length === 0 ? (
           <p>Tu carrito está vacío.</p>
         ) : (
-          cart.map((item) => (
+          Array.isArray(cart) && cart.map((item) => (
             <div key={item.cupcake_id} className="cart-item">
               <img src={item.image} alt={item.name} />
               <div className="item-info">

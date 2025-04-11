@@ -1,5 +1,6 @@
 // src/context/CartContext.js
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import axios from "axios";
 
 export const CartContext = createContext();
 
@@ -32,6 +33,54 @@ export const CartProvider = ({ children }) => {
   const openCartSidebar = () => setIsCartSidebarOpen(true);
   const closeCartSidebar = () => setIsCartSidebarOpen(false);
 
+// Contexto para sincronización con backend
+const fetchCartFromBackend = async () => {
+  try {
+    const res = await axios.get('/api/cart', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    setCart(res.data);
+  } catch (error) {
+    console.error("Error al obtener carrito desde el backend:", error);
+  }
+};
+
+const addToCartBackend = async (product) => {
+  try {
+    await axios.post('/api/cart', {
+      cupcake_id: product.cupcake_id,
+      quantity: product.quantity,
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    fetchCartFromBackend(); // opcionalmente sincroniza
+  } catch (error) {
+    console.error("Error al agregar producto al backend:", error);
+  }
+};
+
+const removeFromCartBackend = async (cupcake_id) => {
+  try {
+    await axios.delete(`/api/cart/${cupcake_id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    fetchCartFromBackend(); // opcional
+  } catch (error) {
+    console.error("Error al eliminar producto del backend:", error);
+  }
+};
+
+// 🔁 Fetch inicial al montar
+useEffect(() => {
+  fetchCartFromBackend();
+}, []);
+
   return (
     <CartContext.Provider value={{
       cart,
@@ -41,7 +90,10 @@ export const CartProvider = ({ children }) => {
       isCartSidebarOpen,
       toggleCartSidebar,
       openCartSidebar,
-      closeCartSidebar
+      closeCartSidebar,
+      addToCartBackend,
+      removeFromCartBackend,
+      fetchCartFromBackend
     }}>
       {children}
     </CartContext.Provider>

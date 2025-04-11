@@ -42,7 +42,8 @@ function Navbar() {
     };
   }, [sideMenuOpen, isCartSidebarOpen]);
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  // const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalItems = Array.isArray(cart) ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
 
   const handleCartClick = () => {
     if (!isAuthenticated) {
