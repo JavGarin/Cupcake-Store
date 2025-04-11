@@ -36,11 +36,12 @@ export const CartProvider = ({ children }) => {
 // Contexto para sincronización con backend
 const fetchCartFromBackend = async () => {
   try {
-    const res = await axios.get('/api/cart', {
+    const res = await axios.get('http://localhost:3001/api/cart', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
+    console.log("🛒 Carrito desde backend:", res.data);
     setCart(res.data);
   } catch (error) {
     console.error("Error al obtener carrito desde el backend:", error);
