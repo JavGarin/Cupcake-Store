@@ -1,7 +1,7 @@
 :root {
   --navbar-height: 80px;
   --text-color: #ffffff;
-  --text-hover: #FF9AC8;
+  --text-hover: #000000;
   --transition-speed: 0.3s;
 }
 
@@ -19,7 +19,7 @@ body, html {
   width: 100%;
   height: var(--navbar-height);
   z-index: 1000;
-  background: transparent;
+  background: color rgb(252, 252, 252);
   transition: all var(--transition-speed) ease;
   display: flex;
   justify-content: center;
@@ -29,9 +29,9 @@ body, html {
 
 /* Solo aplica fondo cuando se hace scroll */
 .navbar-custom.scrolled {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(62, 104, 65);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
 }
 
 /* Contenedor interno del navbar */
@@ -46,8 +46,8 @@ body, html {
 
 /* Estilos de botones */
 .icon-button {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(0, 0, 0, 0.075);
+  border: 1px solid rgb(255, 255, 255);
   border-radius: 50px;
   padding: 0.6rem 1.5rem;
   color: var(--text-color);
@@ -70,13 +70,13 @@ body, html {
 
 /* Logo */
 .logo-img {
-  height: 70px;
+  height: 90px;
   transition: transform var(--transition-speed) ease;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
 }
 
 .logo-img:hover {
-  transform: scale(1.05);
+  transform: scale(1.15);
 }
 
 /* Responsive */

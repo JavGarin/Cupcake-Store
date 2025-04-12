@@ -37,20 +37,7 @@ const Profile = () => {
           <p><strong>Rol:</strong> {user.role}</p>
         </div>
 
-        <form onSubmit={handleChangePassword} className="profile-form">
-          <label>Nueva contraseña</label>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-            minLength={6}
-          />
-
-          <button type="submit" disabled={loading}>
-            {loading ? "Guardando..." : "Cambiar contraseña"}
-          </button>
-        </form>
+  
 
         {message && <p className="profile-message">{message}</p>}
       </div>

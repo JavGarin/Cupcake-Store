@@ -1,42 +1,49 @@
 .top-five-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: right;
+  padding: 4rem 1rem;
+  background-color: #fff7fc;
   text-align: center;
 }
 
 .title-container {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto 3rem;
-  text-align: center;
+  display: flex;
+  justify-content: center; /* ✅ Centra horizontalmente */
+  align-items: center;
+  margin-bottom: 3rem;
   padding: 0 1rem;
 }
 
 .section-title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  font-family: 'Poppins', sans-serif;
-  color: #5a3d5c;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif; /* ✅ Fuente moderna */
+  color: #d94ab2;
   position: relative;
-  display: inline-block;
   padding-bottom: 1rem;
   margin: 0;
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
+/* Línea decorativa debajo del título */
 .section-title::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
+  width: 100px;
+  height: 5px;
   background: #e970cb;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
+/* Grid de cupcakes */
 .cupcakes-grid {
   width: 100%;
   max-width: 1200px;
@@ -58,12 +65,12 @@
   .top-five-section {
     padding: 2rem 0.5rem;
   }
-  
+
   .section-title::after {
     width: 60px;
     height: 3px;
   }
-  
+
   .cupcakes-grid {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.5rem;
@@ -72,16 +79,22 @@
 
 @media (max-width: 576px) {
   .section-title {
-    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
     padding-bottom: 0.8rem;
   }
-  
+
   .title-container {
     margin-bottom: 2rem;
   }
-  
+
   .cupcakes-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

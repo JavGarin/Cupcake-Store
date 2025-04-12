@@ -1,4 +1,3 @@
-// src/context/CartContext.js
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
@@ -6,7 +5,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false); // 🟢 nombre consistente
+  const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false);
 
   const addToCart = (productToAdd) => {
     setCart((prevCart) => {
@@ -28,63 +27,61 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCart([]);
 
-  // 🟢 funciones con nombres coherentes
   const toggleCartSidebar = () => setIsCartSidebarOpen(prev => !prev);
   const openCartSidebar = () => setIsCartSidebarOpen(true);
   const closeCartSidebar = () => setIsCartSidebarOpen(false);
 
-// Contexto para sincronización con backend
-const fetchCartFromBackend = async () => {
-  try {
-    const res = await axios.get('http://localhost:3001/api/cart', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    });
-    console.log("🛒 Carrito desde backend:", res.data);
-    setCart(res.data);
-  } catch (error) {
-    console.error("Error al obtener carrito desde el backend:", error);
-  }
-};
+  const fetchCartFromBackend = async () => {
+    try {
+      const res = await axios.get('http://localhost:3001/api/cart', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      console.log("🛒 Carrito desde backend:", res.data);
+      setCart(res.data);
+    } catch (error) {
+      console.error("Error al obtener carrito desde el backend:", error);
+    }
+  };
 
-const addToCartBackend = async (product) => {
-  try {
-    await axios.post('/api/cart', {
-      cupcake_id: product.cupcake_id,
-      quantity: product.quantity,
-    }, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    });
-    fetchCartFromBackend(); // opcionalmente sincroniza
-  } catch (error) {
-    console.error("Error al agregar producto al backend:", error);
-  }
-};
+  const addToCartBackend = async (product) => {
+    try {
+      await axios.post('/api/cart', {
+        cupcake_id: product.cupcake_id,
+        quantity: product.quantity,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      fetchCartFromBackend();
+    } catch (error) {
+      console.error("Error al agregar producto al backend:", error);
+    }
+  };
 
-const removeFromCartBackend = async (cupcake_id) => {
-  try {
-    await axios.delete(`/api/cart/${cupcake_id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    });
-    fetchCartFromBackend(); // opcional
-  } catch (error) {
-    console.error("Error al eliminar producto del backend:", error);
-  }
-};
+  const removeFromCartBackend = async (cupcake_id) => {
+    try {
+      await axios.delete(`/api/cart/${cupcake_id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      fetchCartFromBackend();
+    } catch (error) {
+      console.error("Error al eliminar producto del backend:", error);
+    }
+  };
 
-// 🔁 Fetch inicial al montar
-useEffect(() => {
-  fetchCartFromBackend();
-}, []);
+  useEffect(() => {
+    fetchCartFromBackend();
+  }, []);
 
   return (
     <CartContext.Provider value={{
       cart,
+      setCart,
       addToCart,
       removeFromCart,
       clearCart,

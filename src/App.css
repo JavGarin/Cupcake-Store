@@ -9,11 +9,12 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: rgba(216, 223, 236, 0.644);
 }
 
 /* Navbar siempre transparente */
 .navbar-custom {
-  background-color: rgba(15, 15, 15, 0.15) !important;
+  background-color: rgba(215, 107, 224, 0.15) !important;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }

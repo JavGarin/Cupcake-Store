@@ -20,8 +20,14 @@ const Cart = () => {
   return (
     <div className="container py-5">
       <h2 className="mb-4">Carrito de Compras</h2>
+
       {cart.length === 0 ? (
-        <p>No tienes productos en tu carrito.</p>
+        <div className="text-center">
+          <p>No tienes productos en tu carrito.</p>
+          <Link to="/products" className="btn btn-primary mt-3">
+            Ver productos
+          </Link>
+        </div>
       ) : (
         <div className="cart-items">
           <table className="table table-striped">
@@ -59,7 +65,7 @@ const Cart = () => {
             </tbody>
           </table>
 
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between align-items-center">
             <h4>Total: ${totalPrice.toLocaleString()}</h4>
             <Link to="/checkout" className="btn btn-success">
               Finalizar Compra

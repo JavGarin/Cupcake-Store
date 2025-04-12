@@ -1,3 +1,4 @@
+// src/App.jsx
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 
@@ -7,7 +8,7 @@ import TopFive from "./components/TopFive";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import Products from "./views/Products";
-import ProductDetail from "./views/ProductDetail"; // ✅ Importado el detalle
+import ProductDetail from "./views/ProductDetail";
 import CartView from "./views/CartView";
 import NotFound from "./views/NotFound";
 import Footer from "./components/Footer";
@@ -54,7 +55,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/product/:cupcake_id" element={<ProductDetail />} /> {/* ✅ Ruta nueva */}
+          <Route path="/product/:cupcake_id" element={<ProductDetail />} />
           <Route
             path="/cart"
             element={
@@ -88,6 +89,8 @@ function App() {
 
       <Footer />
       <ScrollToTop />
+
+      {/* ✅ ToastContainer siempre al final, fuera de Navbar y CartSidebar */}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
@@ -98,6 +101,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+        style={{ zIndex: 99999 }}
       />
     </div>
   );
