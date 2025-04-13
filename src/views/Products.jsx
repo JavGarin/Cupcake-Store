@@ -4,22 +4,25 @@ import ProductCard from "../components/ProductCard";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const API_URL = import.meta.env.VITE_BACKEND_URL; // 👉 usamos variable del .env
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/products")
+    fetch(`${API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => {
         console.log("Productos recibidos:", data);
         setProducts(data);
       })
       .catch((error) => console.error("Error al cargar productos:", error));
-  }, []);
+  }, [API_URL]); // 👉 agregamos dependencia en caso de cambios
 
   if (!products || products.length === 0) {
     return (
       <div className="container my-5 text-center">
         <h2>Catálogo</h2>
-        <p className="text-muted mt-4">Cargando productos o no hay productos disponibles.</p>
+        <p className="text-muted mt-4">
+          Cargando productos o no hay productos disponibles.
+        </p>
       </div>
     );
   }

@@ -6,6 +6,7 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [isCartSidebarOpen, setIsCartSidebarOpen] = useState(false);
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
 
   const addToCart = (productToAdd) => {
     setCart((prevCart) => {
@@ -32,22 +33,37 @@ export const CartProvider = ({ children }) => {
   const closeCartSidebar = () => setIsCartSidebarOpen(false);
 
   const fetchCartFromBackend = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.warn("🔐 No hay token disponible. El usuario no está autenticado.");
+      return;
+    }
+
     try {
-      const res = await axios.get('http://localhost:3001/api/cart', {
+      const res = await axios.get(`${API_URL}/api/cart`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${token}`
         }
       });
       console.log("🛒 Carrito desde backend:", res.data);
       setCart(res.data);
     } catch (error) {
-      console.error("Error al obtener carrito desde el backend:", error);
+      if (error.response) {
+        console.error("❌ Error al obtener carrito desde el backend:");
+        console.error("Código de estado:", error.response.status);
+        console.error("Respuesta del servidor:", error.response.data);
+      } else if (error.request) {
+        console.error("❌ No se recibió respuesta del servidor");
+        console.error("Request:", error.request);
+      } else {
+        console.error("❌ Error en la configuración de la petición:", error.message);
+      }
     }
   };
 
   const addToCartBackend = async (product) => {
     try {
-      await axios.post('/api/cart', {
+      await axios.post(`${API_URL}/api/cart`, {
         cupcake_id: product.cupcake_id,
         quantity: product.quantity,
       }, {
@@ -63,7 +79,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCartBackend = async (cupcake_id) => {
     try {
-      await axios.delete(`/api/cart/${cupcake_id}`, {
+      await axios.delete(`${API_URL}/api/cart/${cupcake_id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

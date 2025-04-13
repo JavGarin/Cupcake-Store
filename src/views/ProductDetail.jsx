@@ -10,16 +10,17 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useContext(CartContext);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/products/${cupcake_id}`)
+    fetch(`${API_URL}/api/products/${cupcake_id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch((error) => {
         console.error("Error al cargar el producto:", error);
         navigate("/"); // redirige si hay error
       });
-  }, [cupcake_id, navigate]);
+  }, [API_URL, cupcake_id, navigate]);
 
   if (!product) return <div className="container py-5">Cargando...</div>;
 
