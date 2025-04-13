@@ -10,6 +10,7 @@ function ProductDetail() {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { addToCart: addToCartContext } = useCart();
 
   useEffect(() => {
@@ -19,31 +20,58 @@ function ProductDetail() {
         const data = await response.json();
         if (data.success) {
           setProduct(data.data);
+        } else {
+          toast.error("Producto no encontrado");
+          navigate("/products");
         }
       } catch (error) {
         console.error("Error fetching product:", error);
+        toast.error("Error al cargar el producto");
+        navigate("/products");
       }
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id, navigate]);
 
-  const handleAddToCart = () => {
-    addToCartContext(product, quantity);
-    toast.success(`🧁 ¡${product.name} agregado al carrito!`, {
-      position: "bottom-right",
-      autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      className: "toast-gold",
-    });    
+  const handleAddToCart = async () => {
+    if (!product || isAddingToCart) return;
+    
+    setIsAddingToCart(true);
+    
+    try {
+      const success = await addToCartContext(product, quantity);
+      
+      if (success) {
+        toast.success(`🧁 ¡${quantity} ${product.name} agregado${quantity > 1 ? 's' : ''} al carrito!`, {
+          position: "bottom-right",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          className: "toast-gold",
+        });
 
-    // Redirige al carrito después de un pequeño delay
-    setTimeout(() => {
-      navigate("/cart");
-    }, 1500);
+        // Redirige al carrito después de un pequeño delay
+        setTimeout(() => {
+          navigate("/cart");
+        }, 1500);
+      } else {
+        toast.error("Debes iniciar sesión para agregar al carrito", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      toast.error("Error al agregar al carrito", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } finally {
+      setIsAddingToCart(false);
+    }
   };
 
   const goBackToProducts = () => {
@@ -83,23 +111,34 @@ function ProductDetail() {
                 -
               </button>
               <span className="quantity-value">{quantity}</span>
-              <button onClick={() => setQuantity(quantity + 1)}>+</button>
+              <button 
+                onClick={() => setQuantity(quantity + 1)}
+                disabled={quantity >= 10} // Límite máximo de 10
+              >
+                +
+              </button>
             </div>
+            {quantity >= 10 && (
+              <p className="quantity-warning">Máximo 10 unidades por producto</p>
+            )}
           </div>
 
-          <button onClick={handleAddToCart} className="add-to-cart-button">
-            Agregar al Carrito
+          <button 
+            onClick={handleAddToCart} 
+            className="add-to-cart-button"
+            disabled={isAddingToCart}
+          >
+            {isAddingToCart ? "Agregando..." : "Agregar al Carrito"}
           </button>
         </div>
       </div>
 
       <button
-  onClick={goBackToProducts}
-  className="back-to-products-button"
->
-  ← Sigue viendo productos 🧁
-</button>
-
+        onClick={goBackToProducts}
+        className="back-to-products-button"
+      >
+        ← Sigue viendo productos 🧁
+      </button>
 
       {/* Contenedor de notificaciones */}
       <ToastContainer />

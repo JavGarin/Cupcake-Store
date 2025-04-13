@@ -106,7 +106,7 @@
 .alert-danger {
   background: #f8d7da;
   color: #721c24;
-  border: 1px solid #f5c6cb;
+  border: 1px solid #f5c7cb;
 }
 
 @media (max-width: 576px) {
@@ -117,4 +117,24 @@
   .auth-card {
     padding: 1.5rem;
   }
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px); }
 }

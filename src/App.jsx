@@ -10,8 +10,9 @@ import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
 import NotFound from "./views/NotFound";
 import Footer from "./components/Footer";
+import ScrollToTopButton from "./components/ScrollToTop";
 import { UserContext } from "./context/UserContext";
-import { CartProvider } from "./context/CartContext"; // Asegúrate esta ruta
+import { CartProvider } from "./context/CartContext";
 import AdminLogin from "./admin/AdminLogin";
 import AdminDashboard from "./admin/AdminDashboard";
 import ProductEditor from "./admin/ProductEditor";
@@ -20,8 +21,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-
-// ... resto del código de App.jsx ...
 
 const ProtectedRoute = ({ children, requireAdmin = false }) => {
   const { user, isAdmin } = useContext(UserContext);
@@ -42,7 +41,6 @@ const HomePage = () => (
 function App() {
   const location = useLocation();
 
-  // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
@@ -82,8 +80,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
-        
-        {/* Toast Notifications */}
+        <ScrollToTopButton />
         <ToastContainer 
           position="bottom-right"
           autoClose={3000}

@@ -25,6 +25,8 @@ const Register = () => {
     password: false,
     confirmPassword: false
   });
+
+  const [showSuccess, setShowSuccess] = useState(false);
   
   const navigate = useNavigate();
 
@@ -92,10 +94,14 @@ const Register = () => {
       });
 
       if (result.success) {
-        navigate('/', { 
-          state: { message: '¡Registro exitoso! Bienvenido.' },
-          replace: true 
-        });
+        setShowSuccess(true);
+
+        setTimeout(() => {
+          navigate('/', { 
+            state: { message: '¡Registro exitoso! Bienvenido.' },
+            replace: true 
+          });
+        }, 2000);
       }
     } catch (err) {
       console.error('Registration error:', err);
@@ -116,6 +122,12 @@ const Register = () => {
       <div className="auth-card">
         <h2>Registro</h2>
         <p className="auth-subtitle">Crea una cuenta para comenzar</p>
+
+        {showSuccess && (
+          <div className="toast toast-success">
+            ¡Registro exitoso! 🧁✨🎉...
+          </div>
+        )}
 
         {(error || validationError) && (
           <div className={`alert ${error ? 'alert-danger' : 'alert-warning'}`}>

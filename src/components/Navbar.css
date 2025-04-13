@@ -26,6 +26,27 @@ body, html {
   align-items: center;
   backdrop-filter: none;
 }
+.username-display {
+  margin-right: 1rem;
+  font-weight: bold;
+  color: #FF9AC8;
+}
+
+.user-info-cart {
+  display: flex;
+  align-items: center;
+}
+
+.cart-badge {
+  background-color: #ff4081;
+  color: white;
+  border-radius: 50%;
+  padding: 0.25em 0.6em;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
 
 /* Solo aplica fondo cuando se hace scroll */
 .navbar-custom.scrolled {

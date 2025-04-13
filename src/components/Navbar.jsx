@@ -1,14 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import { useCart } from "../context/CartContext";
 import SideMenu from "./SideMenu";
 import "./Navbar.css";
 
 function Navbar() {
+  const { user } = useContext(UserContext);
+  const { cartItems } = useCart();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   const toggleSideMenu = () => {
     setSideMenuOpen(!sideMenuOpen);
+  };
+
+  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  const handleCartClick = () => {
+    navigate("/cart");
   };
 
   useEffect(() => {
@@ -16,8 +27,8 @@ function Navbar() {
       setScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -29,7 +40,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className={`navbar-custom ${scrolled ? 'scrolled' : ''}`}>
+      <nav className={`navbar-custom ${scrolled ? "scrolled" : ""}`}>
         <div className="navbar-container">
           <button className="icon-button menu-button" onClick={toggleSideMenu} aria-label="Toggle menu">
             <i className="fas fa-bars"></i>
@@ -47,10 +58,20 @@ function Navbar() {
             </Link>
           </div>
 
-          <Link to="/cart" className="icon-button cart-button" aria-label="Cart">
-            <i className="fas fa-shopping-cart"></i>
-            <span className="icon-label">ORDENA</span>
-          </Link>
+          <div className="user-info-cart">
+            {user && (
+              <span className="username-display">
+                ¡Hola, {user.username}!
+              </span>
+            )}
+            <button className="icon-button cart-button" onClick={handleCartClick} aria-label="Cart">
+              <i className="fas fa-shopping-cart"></i>
+              <span className="icon-label">ORDENA</span>
+              {totalItems > 0 && (
+                <span className="cart-badge">{totalItems}</span>
+              )}
+            </button>
+          </div>
         </div>
       </nav>
 

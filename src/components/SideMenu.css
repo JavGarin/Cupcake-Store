@@ -74,6 +74,20 @@
   padding: 0.5rem 0;
 }
 
+.logout-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  width: 100%;
+}
+.logout-btn:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+}
+
 .sidemenu a:hover {
   color: #e970cb;
 }

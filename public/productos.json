@@ -88,5 +88,14 @@
     "image": "/images/TritonCupcakeA.png",
     "rating": 4.2,
     "bgColor": "#ede0d4"
+  },
+  {
+    "cupcake_id": 11,
+    "name": "Ojo magic cup",
+    "description": "Un cupcake mágico con un diseño único de ojo brillante,",
+    "price": 4990,
+    "image": "/images/placeholder-cupcake.png",
+    "rating": 4.2,
+    "bgColor": "#FF5733"
   }
 ]
