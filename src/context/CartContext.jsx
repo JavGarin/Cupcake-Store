@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
   const fetchCartFromBackend = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      console.warn("🔐 No hay token disponible. El usuario no está autenticado.");
+      console.warn("🔐 No hay token disponible. No se consultará el carrito.");
       return;
     }
 
@@ -54,7 +54,6 @@ export const CartProvider = ({ children }) => {
         console.error("Respuesta del servidor:", error.response.data);
       } else if (error.request) {
         console.error("❌ No se recibió respuesta del servidor");
-        console.error("Request:", error.request);
       } else {
         console.error("❌ Error en la configuración de la petición:", error.message);
       }

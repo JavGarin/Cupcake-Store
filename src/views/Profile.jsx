@@ -14,7 +14,7 @@ const Profile = () => {
     setMessage("");
 
     try {
-      // Aquí puedes hacer la petición al backend (por ahora solo simulado)
+      
       await new Promise(resolve => setTimeout(resolve, 800));
       setMessage("Contraseña actualizada correctamente");
       setNewPassword("");

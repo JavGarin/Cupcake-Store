@@ -90,7 +90,7 @@ function App() {
       <Footer />
       <ScrollToTop />
 
-      {/* ✅ ToastContainer siempre al final, fuera de Navbar y CartSidebar */}
+      
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
