@@ -10,7 +10,7 @@
 .title-container {
   width: 100%;
   display: flex;
-  justify-content: center; /* ✅ Centra horizontalmente */
+  justify-content: center;
   align-items: center;
   margin-bottom: 3rem;
   padding: 0 1rem;
@@ -19,7 +19,7 @@
 .section-title {
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
-  font-family: 'Poppins', sans-serif; /* ✅ Fuente moderna */
+  font-family: 'Poppins', sans-serif; 
   color: #d94ab2;
   position: relative;
   padding-bottom: 1rem;

@@ -1,4 +1,4 @@
-// src/main.jsx
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { StrictMode } from 'react';
@@ -13,7 +13,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify'; // ✅ Añadido aquí
+import { ToastContainer } from 'react-toastify';
 
 // FontAwesome setup
 library.add(fas, far, fab);

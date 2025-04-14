@@ -16,11 +16,11 @@ export const login = async (userData) => {
 
 // Obtener perfil del usuario autenticado
 export const getProfile = async () => {
-  const token = localStorage.getItem("token"); // ✅ Obtiene token automáticamente
+  const token = localStorage.getItem("token");
 
   const response = await axios.get(`${API_URL}/profile`, {
     headers: {
-      Authorization: `Bearer ${token}`, // ✅ Incluye token en la cabecera
+      Authorization: `Bearer ${token}`,
     },
   });
 
