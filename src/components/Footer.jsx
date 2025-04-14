@@ -61,16 +61,16 @@ function Footer() {
           <div className="footer-section social-media">
             <h3 className="section-title">Síguenos</h3>
             <div className="social-icons">
-              <a href="#" className="social-icon facebook">
+              <a href="https://www.facebook.com/" target='_blank' className="social-icon facebook">
                 <FontAwesomeIcon icon={faFacebook} />
               </a>
-              <a href="#" className="social-icon instagram">
+              <a href="https://www.instagram.com/" target='_blank' className="social-icon instagram">
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
-              <a href="#" className="social-icon tiktok">
+              <a href="https://www.tiktok.com/@ceciarmy/video/7438387771636501793" target='_blank' className="social-icon tiktok">
                 <FontAwesomeIcon icon={faTiktok} />
               </a>
-              <a href="#" className="social-icon pinterest">
+              <a href="https://cl.pinterest.com/" target='_blank' className="social-icon pinterest">
                 <FontAwesomeIcon icon={faPinterest} />
               </a>
             </div>
