@@ -1,4 +1,3 @@
-// src/components/CarouselPromo.jsx
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -48,7 +47,7 @@ const CarouselPromo = () => {
   return (
     <section
       id="promoCarousel"
-      className="carousel slide"  // ⬅️ SIN carousel-fade
+      className="carousel slide"
       aria-label="Carrusel promocional"
     >
       <div className="carousel-inner">

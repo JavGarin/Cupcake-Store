@@ -87,9 +87,9 @@ function Footer() {
           </div>
 
           <div className="quick-links">
-            <a href="#">Términos</a>
-            <a href="#">Privacidad</a>
-            <a href="#">FAQ</a>
+            <a href="https://dle.rae.es/t%C3%A9rmino" target='_blank'>Términos</a>
+            <a href="https://es.wikipedia.org/wiki/Privacidad_en_Internet" target='_blank'>Privacidad</a>
+            <a href="https://www.zendesk.com.mx/blog/faq-que-es-significa/" target='_blank'>FAQ</a>
           </div>
 
           <div className="payment-section">
