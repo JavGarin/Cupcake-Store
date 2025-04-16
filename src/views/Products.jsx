@@ -10,7 +10,7 @@ const Products = () => {
     fetch(`${API_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Productos recibidos:", data);
+        // console.log("Productos recibidos:", data);
         setProducts(data);
       })
       .catch((error) => console.error("Error al cargar productos:", error));
