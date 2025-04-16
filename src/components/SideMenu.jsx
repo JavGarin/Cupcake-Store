@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 import './SideMenu.css';
 
 function SideMenu({ isOpen, toggleSideMenu }) {
+  const { user, logout } = useContext(UserContext);
+
   return (
     <div
       className={`sidemenu-overlay ${isOpen ? '' : 'hidden'}`}
@@ -12,7 +15,7 @@ function SideMenu({ isOpen, toggleSideMenu }) {
         className={`sidemenu ${isOpen ? 'open' : ''}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Botón de cerrar */}
+
         <button className="close-btn" onClick={toggleSideMenu}>
           &times;
         </button>
@@ -21,15 +24,35 @@ function SideMenu({ isOpen, toggleSideMenu }) {
           <li>
             <Link to="/" onClick={toggleSideMenu}>Home</Link>
           </li>
-          <li>
-            <Link to="/register" onClick={toggleSideMenu}>Registrarse</Link>
-          </li>
-          <li>
-            <Link to="/login" onClick={toggleSideMenu}>Iniciar sesión</Link>
-          </li>
+
+          {!user && (
+            <>
+              <li>
+                <Link to="/register" onClick={toggleSideMenu}>Registrarse</Link>
+              </li>
+              <li>
+                <Link to="/login" onClick={toggleSideMenu}>Iniciar sesión</Link>
+              </li>
+            </>
+          )}
+
           <li>
             <Link to="/products" onClick={toggleSideMenu}>Productos</Link>
           </li>
+
+          {user && (
+            <li>
+              <button
+                onClick={() => {
+                  logout();
+                  toggleSideMenu();
+                }}
+                className="logout-btn"
+              >
+                Cerrar sesión
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </div>

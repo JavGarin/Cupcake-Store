@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
-
 import Navbar from "./components/Navbar";
 import CarouselPromo from "./components/CarouselPromo";
 import TopFive from "./components/TopFive";
@@ -18,7 +17,6 @@ import AdminDashboard from "./admin/AdminDashboard";
 import ProductEditor from "./admin/ProductEditor";
 import Profile from "./views/Profile";
 import CartSidebar from "./components/CartSidebar";
-
 import { ToastContainer } from 'react-toastify';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
