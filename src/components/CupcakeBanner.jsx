@@ -1,4 +1,4 @@
-// src/components/CupcakeBanner.jsx
+
 import React, { useContext } from 'react';
 import './CupcakeBanner.css';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ const CupcakeBanner = ({ data, index = 0 }) => {
 
   if (!data) return null;
 
-  const { cupcake_id, name, description, price, image, rating, bgColor } = data; // Cambié id a cupcake_id
+  const { cupcake_id, name, description, price, image, rating, bgColor } = data;
   const isEven = index % 2 === 0;
 
   const renderStars = (rating) => {
@@ -36,7 +36,7 @@ const CupcakeBanner = ({ data, index = 0 }) => {
   };
 
   const handleViewMore = () => {
-    navigate(`/product/${cupcake_id}`); // Cambié id a cupcake_id
+    navigate(`/product/${cupcake_id}`);
   };
 
   const handleBuy = () => {

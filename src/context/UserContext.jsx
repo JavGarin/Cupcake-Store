@@ -33,22 +33,23 @@ export const UserProvider = ({ children }) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
+  
     try {
       if (!email.trim() || !password.trim()) {
         throw new Error("Email y contraseña son requeridos");
       }
-
+  
       const response = await loginUser({ email, password });
       const newToken = response.token;
-
+  
       localStorage.setItem("token", newToken);
       setToken(newToken);
-
+  
       const profile = await getProfile(newToken);
       setUser(profile);
+      localStorage.setItem("user", JSON.stringify(profile)); // 👈 AQUI
       localStorage.setItem("userEmail", profile.email);
-
+  
     } catch (err) {
       setError(err.response?.data?.error || err.message || "Error al iniciar sesión");
       throw err;
@@ -56,6 +57,7 @@ export const UserProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -114,7 +116,7 @@ export const UserProvider = ({ children }) => {
         logout,
         isAdmin,
         isAuthenticated: !!user,
-        isLoggedIn: !!user // ✅ Agregado para compatibilidad con ProductDetail
+        isLoggedIn: !!user
       }}
     >
       {children}

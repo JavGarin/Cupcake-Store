@@ -1,4 +1,3 @@
-// src/components/ProductCard.jsx
 import React, { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { toast } from "react-toastify";
@@ -12,8 +11,8 @@ const ProductCard = ({ product }) => {
   const handleAddToCart = () => {
     if (quantity > 0) {
       addToCart({ ...product, quantity });
-      toast.success(`${product.name} x${quantity} agregado al carrito 🧁`);
-      setQuantity(1); // Reinicia la cantidad
+      toast.success(`${product.name} x${quantity} agregado al carrito 🧁✨`);
+      setQuantity(1);
     }
   };
 

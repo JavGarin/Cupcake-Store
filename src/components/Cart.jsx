@@ -1,4 +1,3 @@
-// src/components/Cart.jsx
 import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { toast } from "react-toastify";

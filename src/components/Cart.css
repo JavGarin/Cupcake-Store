@@ -1,16 +1,18 @@
-/* src/styles/Cart.css */
 .cart-items table {
   margin-top: 20px;
+  width: 100%;
 }
 
 .cart-items img {
   border-radius: 50%;
 }
 
-.cart-items th, .cart-items td {
+.cart-items th,
+.cart-items td {
   vertical-align: middle;
 }
 
+/* Botones */
 .cart-items .btn {
   margin-top: 10px;
 }
@@ -33,4 +35,72 @@
 .cart-items .btn-success:hover {
   background-color: #218838;
   border-color: #218838;
+}
+
+@media (max-width: 768px) {
+  .cart-items table {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-items thead {
+    display: none;
+  }
+
+  .cart-items tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cart-items tr {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .cart-items td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    font-size: 0.95rem;
+  }
+
+  .cart-items td:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .cart-items img {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+
+  .cart-items .btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .cart-items .d-flex {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .cart-items h4 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .cart-items .btn-success {
+    width: 100%;
+    font-size: 1rem;
+  }
 }

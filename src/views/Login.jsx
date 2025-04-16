@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
-import './Auth.css'; // Asegúrate de que el CSS existe
+import './Auth.css';
 
 const Login = () => {
   const {

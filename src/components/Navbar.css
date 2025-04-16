@@ -11,7 +11,6 @@ body, html {
   overflow-x: hidden;
 }
 
-/* Navbar principal */
 .navbar-custom {
   position: fixed;
   top: 0;
@@ -19,7 +18,7 @@ body, html {
   width: 100%;
   height: var(--navbar-height);
   z-index: 1000;
-  background: color rgb(252, 252, 252);
+  background: rgb(252, 252, 252);
   transition: all var(--transition-speed) ease;
   display: flex;
   justify-content: center;
@@ -27,14 +26,12 @@ body, html {
   backdrop-filter: none;
 }
 
-/* Solo aplica fondo cuando se hace scroll */
 .navbar-custom.scrolled {
   background: rgb(62, 104, 65);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0);
 }
 
-/* Contenedor interno del navbar */
 .navbar-container {
   width: 100%;
   max-width: 1200px;
@@ -44,7 +41,6 @@ body, html {
   padding: 0 2rem;
 }
 
-/* Estilos de botones */
 .icon-button {
   background-color: rgba(0, 0, 0, 0.075);
   border: 1px solid rgb(255, 255, 255);
@@ -68,7 +64,16 @@ body, html {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* Logo */
+.logo-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
 .logo-img {
   height: 90px;
   transition: transform var(--transition-speed) ease;
@@ -79,14 +84,62 @@ body, html {
   transform: scale(1.15);
 }
 
-/* Responsive */
+.user-icon-button {
+  padding: 0.6rem 0.8rem;
+  font-size: 1.3rem;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+}
+
+.user-icon-button i {
+  color: var(--text-color);
+  transition: transform 0.2s ease;
+}
+
+.user-icon-button:hover i {
+  transform: scale(1.1);
+  color: var(--text-hover);
+}
+
+/* Carrito */
+.cart-button {
+  position: relative;
+  font-size: 1.2rem;
+  color: #333;
+  background-color: transparent;
+  border: none;
+  padding: 0.6rem 0.8rem;
+}
+
+.cart-button i {
+  color: #333;
+}
+
+.cart-count-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.icon-label {
+  display: inline;
+  transition: opacity 0.2s;
+}
+
 @media (max-width: 992px) {
   .navbar-container {
     padding: 0 1.5rem;
   }
-  
+
   .logo-img {
-    height: 60px;
+    height: 70px;
   }
 }
 
@@ -94,9 +147,21 @@ body, html {
   .icon-button {
     padding: 0.6rem;
   }
-  
+
   .icon-label {
     display: none;
+  }
+
+  .logo-img {
+    height: 60px;
+  }
+
+  .user-icon-button {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .cart-button {
+    padding: 0.4rem 0.5rem;
   }
 }
 
@@ -104,11 +169,11 @@ body, html {
   .navbar-container {
     padding: 0 1rem;
   }
-  
+
   .logo-img {
     height: 50px;
   }
-  
+
   .navbar-custom {
     height: 70px;
   }

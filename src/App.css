@@ -1,4 +1,4 @@
-/* Reset básico */
+
 body {
   margin: 0;
   padding: 0;
@@ -22,10 +22,9 @@ body {
 /* Contenido principal */
 .main-content {
   flex: 1;
-  /* margin-top: var(--navbar-height); */
 }
 
-/* Ajuste especial para el carrusel */
+
 #promoCarousel {
   margin-top: calc(-1 * var(--navbar-height));
   height: 100vh;
@@ -33,7 +32,6 @@ body {
   z-index: 0;
 }
 
-/* Asegurar que otras secciones no se oculten */
 section {
   position: relative;
   z-index: 1;

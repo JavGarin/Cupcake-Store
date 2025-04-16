@@ -34,11 +34,18 @@ export const CartProvider = ({ children }) => {
 
   const fetchCartFromBackend = async () => {
     const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user')); // 👈 obtenemos el usuario guardado
+  
     if (!token) {
       console.warn("🔐 No hay token disponible. No se consultará el carrito.");
       return;
     }
-
+  
+    if (user?.role === 'admin') {
+      console.log("👑 Usuario admin no necesita carrito. Cancelando petición.");
+      return;
+    }
+  
     try {
       const res = await axios.get(`${API_URL}/api/cart`, {
         headers: {
@@ -59,7 +66,7 @@ export const CartProvider = ({ children }) => {
       }
     }
   };
-
+  
   const addToCartBackend = async (product) => {
     try {
       await axios.post(`${API_URL}/api/cart`, {

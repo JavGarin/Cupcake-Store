@@ -83,8 +83,48 @@ body, html {
   opacity: 1;
 }
 
-/* Fade in */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  #promoCarousel {
+    height: 70vh;
+  }
+
+  .carousel-inner,
+  .carousel-item {
+    height: 70vh;
+  }
+
+  .carousel-caption {
+    left: 5%;
+    right: 5%;
+    bottom: 8%;
+    max-width: 90%;
+    padding: 1rem 1.5rem;
+  }
+
+  .carousel-caption h5 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .carousel-caption .btn {
+    display: block;
+    margin: 0 auto;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 12%;
+  }
 }

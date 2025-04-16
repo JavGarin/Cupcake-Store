@@ -59,13 +59,13 @@
 }
 
 .sidemenu li {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
   border-bottom: 1px solid #f0e6ef;
   padding-bottom: 1rem;
 }
 
 .sidemenu a {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #5a3d5c;
   text-decoration: none;
@@ -85,6 +85,6 @@
   }
   
   .sidemenu a {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
   }
 }

@@ -82,6 +82,10 @@
 .social-icon:hover {
   transform: translateY(-3px);
 }
+.contact-item:hover {
+  transform: translateY(-2px);
+  color:#e970cb;
+}
 
 .facebook { background-color: #1877f2; color: white; }
 .instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color: white; }
@@ -110,15 +114,8 @@
 }
 
 .logo {
-  height: 40px;
+  height: 180px;
   width: auto;
-  background-color: #5a3d5c;
-}
-
-.brand-name {
-  font-weight: 700;
-  color: #e970cb;
-  font-size: 1.2rem;
 }
 
 .quick-links {

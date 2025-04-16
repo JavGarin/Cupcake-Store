@@ -9,7 +9,7 @@ const CarouselPromo = () => {
     {
       id: 1,
       video: "/images/cupcakePromoA.mp4",
-      title: "Mas Tuki que nunca!",
+      title: "¡Más Tuki que nunca!",
       description: "¡Nueva receta, nuevos sabores!",
       ctaText: "Comprar ahora",
       ctaLink: "/products"
@@ -17,8 +17,8 @@ const CarouselPromo = () => {
     {
       id: 2,
       video: "/images/cupcakePromoB.mp4",
-      title: "Variedades de top con galletas",
-      description: "¡Pruebalos!",
+      title: "Galletas + Cupcakes",
+      description: "¡Prueba las nuevas combinaciones!",
       ctaText: "Comprar ahora",
       ctaLink: "/products"
     },
@@ -26,7 +26,7 @@ const CarouselPromo = () => {
       id: 3,
       video: "/images/cupcakePromoC.mp4",
       title: "Vuelven los Donkeys",
-      description: "¡Monkey week! No te lo pierdas!",
+      description: "¡Monkey week! No te lo pierdas.",
       ctaText: "Comprar ahora",
       ctaLink: "/products"
     }
@@ -67,9 +67,9 @@ const CarouselPromo = () => {
               <source src={item.video} type="video/mp4" />
               Tu navegador no soporta video HTML5.
             </video>
-            <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
-              <h5 className="text-white">{item.title}</h5>
-              <p className="text-light">{item.description}</p>
+            <div className="carousel-caption custom-caption">
+              <h5>{item.title}</h5>
+              <p>{item.description}</p>
               <Link className="btn btn-primary btn-sm" to={item.ctaLink}>
                 {item.ctaText}
               </Link>

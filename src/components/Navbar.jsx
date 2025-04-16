@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SideMenu from "./SideMenu";
@@ -6,7 +5,7 @@ import CartSidebar from "./CartSidebar";
 import "./Navbar.css";
 import { UserContext } from "../context/UserContext";
 import { CartContext } from "../context/CartContext";
-import { toast, ToastContainer } from "react-toastify"; // ✅ Importamos aquí también
+import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function Navbar() {
@@ -65,7 +64,7 @@ function Navbar() {
           <div className="logo-wrapper">
             <Link className="navbar-brand" to="/">
               <img
-                src="/images/cupcakeLogo.png"
+                src="/images/CupcakeLOGOTIPO.png"
                 alt="Cupcake Logo"
                 className="logo-img"
                 loading="lazy"
@@ -77,12 +76,12 @@ function Navbar() {
             {isAuthenticated && (
               <div className="dropdown">
                 <button
-                  className="icon-button dropdown-toggle"
+                  className="icon-button dropdown-toggle user-icon-button"
                   id="userDropdown"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  👋 {user?.email}
+                  <i className="fas fa-user-circle"></i>
                 </button>
                 <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                   <li>
@@ -111,7 +110,6 @@ function Navbar() {
       <SideMenu isOpen={sideMenuOpen} toggleSideMenu={toggleSideMenu} />
       <CartSidebar />
 
-      {/* ✅ ToastContainer al final, con z-index alto */}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

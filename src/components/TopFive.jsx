@@ -17,8 +17,6 @@ const TopFive = () => {
 
   return (
     <div className="top-five-section">
-      <h2 className="section-title-centered">Top 5 Cupcakes</h2>
-
       <div className="cupcakes-grid">
         {topCupcakes.map((cupcake, index) => (
           <CupcakeBanner
