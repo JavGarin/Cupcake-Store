@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import './AdminLogin.css';
@@ -12,7 +12,8 @@ const AdminLogin = () => {
     handleSubmit, 
     loading, 
     error,
-    isAdmin
+    isAdmin,
+    user
   } = useContext(UserContext);
   const navigate = useNavigate();
   const [localError, setLocalError] = useState('');
@@ -21,15 +22,22 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       await handleSubmit(e);
+      
+    } catch (err) {
+      setLocalError(err.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
       if (isAdmin()) {
         navigate('/admin/dashboard');
       } else {
         setLocalError('Acceso solo para administradores');
       }
-    } catch (err) {
-      setLocalError(err.message);
     }
-  };
+  }, [user, isAdmin, navigate]);
+  
 
   return (
     <div className="admin-login-container">

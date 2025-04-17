@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
   
       const profile = await getProfile(newToken);
       setUser(profile);
-      localStorage.setItem("user", JSON.stringify(profile)); // 👈 AQUI
+      localStorage.setItem("user", JSON.stringify(profile));
       localStorage.setItem("userEmail", profile.email);
   
     } catch (err) {

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const BASE_URL = 'https://cupcake-store-backend-fh9c.onrender.com';
+
 const ProductEditor = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -14,41 +16,65 @@ const ProductEditor = () => {
 
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get('/api/admin/products', {
-        headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` }
+      const { data } = await axios.get(`${BASE_URL}/api/admin/products`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('adminToken')}`
+        }
       });
+      console.log("Productos recibidos:", data);
       setProducts(data);
     } catch (error) {
       toast.error('Error al cargar productos');
+      console.error("Error:", error.response?.data || error.message); 
     }
   };
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem('adminToken')}`
+      };
+
       if (editingProduct) {
-        await axios.put(
-          `/api/admin/products/${editingProduct.id}`,
-          formData
-        );
+        await axios.put(`${BASE_URL}/api/admin/products/${editingProduct.id}`, formData, { headers });
         toast.success('Producto actualizado');
       } else {
-        await axios.post('/api/admin/products', formData);
+        await axios.post(`${BASE_URL}/api/admin/products`, formData, { headers });
         toast.success('Producto creado');
       }
+
       setEditingProduct(null);
+      setFormData({ name: '', description: '', price: '', image_url: '' });
       fetchProducts();
     } catch (error) {
       toast.error('Error al guardar');
     }
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm('¿Eliminar este producto?')) {
+      try {
+        await axios.delete(`${BASE_URL}/api/admin/products/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` }
+        });
+        fetchProducts();
+      } catch (error) {
+        toast.error('Error al eliminar');
+      }
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
+  }, []);
+  
+
+  useEffect(() => {
     if (editingProduct) {
       setFormData({
         name: editingProduct.name,
@@ -80,12 +106,7 @@ const ProductEditor = () => {
             <h3>{product.name}</h3>
             <p>${product.price}</p>
             <button onClick={() => setEditingProduct(product)}>Editar</button>
-            <button onClick={async () => {
-              if (window.confirm('¿Eliminar este producto?')) {
-                await axios.delete(`/api/admin/products/${product.id}`);
-                fetchProducts();
-              }
-            }}>Eliminar</button>
+            <button onClick={() => handleDelete(product.id)}>Eliminar</button>
           </div>
         ))}
       </div>

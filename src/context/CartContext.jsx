@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchCartFromBackend = async () => {
     const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user')); // 👈 obtenemos el usuario guardado
+    const user = JSON.parse(localStorage.getItem('user'));
   
     if (!token) {
       console.warn("🔐 No hay token disponible. No se consultará el carrito.");
